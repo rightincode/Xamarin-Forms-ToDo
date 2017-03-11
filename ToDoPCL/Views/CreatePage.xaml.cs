@@ -12,7 +12,8 @@ namespace ToDoPCL
 		public CreatePage ()
 		{
             vm = new CreatePageViewModel();
-			InitializeComponent ();            
+			InitializeComponent ();
+            Clear();
 		}
        
         private void Clear()
@@ -31,7 +32,7 @@ namespace ToDoPCL
 
         public void OnReview(object o, EventArgs e) {
             Clear();
-            Navigation.PushAsync(new ListTasksPage(vm));
+            Navigation.PushAsync(new ListTasksPage());
         }
     }
 }

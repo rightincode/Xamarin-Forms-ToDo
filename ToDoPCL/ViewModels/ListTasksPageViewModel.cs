@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using ToDoPCL.Models;
@@ -33,10 +34,12 @@ namespace ToDoPCL.ViewModels
 
         public ListTasksPageViewModel()
         {
-            if (toDoItems == null)
-            {
-                toDoItems = new List<ToDoItem>();
-            }
+        }
+
+        public async Task<int> LoadItemsAsync()
+        {
+            ToDoItems = await ToDoPCL.Database.GetItemsAsync();
+            return 0;
         }
 
         public void SaveSelectedItem(ItemTappedEventArgs e)

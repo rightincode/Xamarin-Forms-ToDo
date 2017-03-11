@@ -16,20 +16,25 @@ namespace ToDoPCL
 
         private ListTasksPageViewModel vm;
 
-        public ListTasksPage (CreatePageViewModel createPageViewModel)
+        public ListTasksPage()
 		{
-            vm = new ListTasksPageViewModel()
-            {
-                ToDoItems = createPageViewModel.ToDoItems
-            };
+            vm = new ListTasksPageViewModel();
             BindingContext = this;
-			InitializeComponent ();
+			InitializeComponent();
 		}
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await VM.LoadItemsAsync();
+            this.ToDoList.ItemsSource = null;
+            this.ToDoList.ItemsSource = VM.ToDoItems;
+        }
 
         public void OnSelected(object o, ItemTappedEventArgs e)
         {
-            vm.SaveSelectedItem(e);
-            DisplayAlert("Chosen!", vm.SelectedItem.TaskName + " was selected!", "Ok");
+            VM.SaveSelectedItem(e);
+            DisplayAlert("Chosen!", VM.SelectedItem.TaskName + " was selected!", "Ok");
         }
 	}
 }

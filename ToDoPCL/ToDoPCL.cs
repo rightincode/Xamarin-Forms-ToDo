@@ -1,9 +1,26 @@
 ﻿using Xamarin.Forms;
 
+using ToDoPCL.Data;
+
 namespace ToDoPCL
 {
     public class ToDoPCL : Application
     {
+        static ToDoItemDatabase database;
+
+        public static ToDoItemDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+                }
+
+                return database;
+            }
+        }
+
         public ToDoPCL()
         {
             MainPage = new NavigationPage(new CreatePage());
