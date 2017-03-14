@@ -23,7 +23,7 @@ namespace ToDoPCL
 
         public ToDoPCL()
         {
-            MainPage = new NavigationPage(new CreatePage());
+            MainPage = new NavigationPage(new ListTasksPage());
         }
 
         protected override void OnStart()

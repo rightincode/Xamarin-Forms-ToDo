@@ -8,31 +8,58 @@ namespace ToDoPCL
 	public partial class CreatePage : ContentPage
 	{
         private CreatePageViewModel vm;
+        private int mTodoListItemId;
 
-		public CreatePage ()
-		{
+        public CreatePageViewModel VM
+        {
+            get
+            {
+                return vm;
+            }
+        }
+
+		public CreatePage()
+		{           
+            InitializeComponent();
             vm = new CreatePageViewModel();
-			InitializeComponent ();
+            mTodoListItemId = 0;
             Clear();
-		}
-       
+            BindingContext = VM;
+        }
+
+        public CreatePage(int toDoListItemId)
+        {
+            InitializeComponent();
+            vm = new CreatePageViewModel();
+            mTodoListItemId = (toDoListItemId > 0) ? toDoListItemId : 0;
+            Clear();
+            BindingContext = VM;            
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await VM.LoadToDoListItem(mTodoListItemId);
+        }
+
         private void Clear()
         {
-            ToDoEntry.Text = Priority.Text = String.Empty;
-            Date.Date = DateTime.Now;
-            Time.Time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            TaskName.Text = Priority.Text = String.Empty;
+            DueDate.Date = DateTime.Now;
+            DueTime.Time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
         }
 
         public void OnSave(object o, EventArgs e) {
-            vm.AddToDoItem(ToDoEntry.Text, Priority.Text, Date.Date, Time.Time);
+            VM.AddToDoItem();
             Clear();
         }
 
         public void OnCancel(object o, EventArgs e) { }
 
-        public void OnReview(object o, EventArgs e) {
+        public async void OnReview(object o, EventArgs e) {
             Clear();
-            Navigation.PushAsync(new ListTasksPage());
+            await Navigation.PopAsync();
         }
+       
     }
 }

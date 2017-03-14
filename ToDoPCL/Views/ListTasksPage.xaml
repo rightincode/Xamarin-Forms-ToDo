@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDoPCL.ListTasksPage">
-    <ContentPage.Content>
+    <ContentPage.Content>        
         <StackLayout Padding="30">
+            <Button BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" Clicked="OnAddNew"/>
             <ListView x:Name="ToDoList" ItemTapped="OnSelected" ItemsSource="{Binding VM.ToDoItems}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
