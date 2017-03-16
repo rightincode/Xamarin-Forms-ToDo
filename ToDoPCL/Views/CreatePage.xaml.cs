@@ -23,8 +23,9 @@ namespace ToDoPCL
             InitializeComponent();
             vm = new CreatePageViewModel();
             mTodoListItemId = 0;
-            Clear();
+            
             BindingContext = VM;
+            Clear();
         }
 
         public CreatePage(int toDoListItemId)
@@ -32,8 +33,9 @@ namespace ToDoPCL
             InitializeComponent();
             vm = new CreatePageViewModel();
             mTodoListItemId = (toDoListItemId > 0) ? toDoListItemId : 0;
+            
+            BindingContext = VM;
             Clear();
-            BindingContext = VM;            
         }
 
         protected override async void OnAppearing()
@@ -51,16 +53,14 @@ namespace ToDoPCL
 
         public async void OnSave(object o, EventArgs e) {
             await VM.AddToDoItem();
-            Clear();      //causes problems if we don't wait for the database call to complete - two way binding!!!!
+            Clear();      //causes problems if we don't wait for the database call above to complete - two way binding!!!!
             await Navigation.PopAsync();
+
         }
-
-        public void OnCancel(object o, EventArgs e) { }
-
-        public async void OnReview(object o, EventArgs e) {
+        public void OnCancel(object o, EventArgs e) {
             Clear();
-            await Navigation.PopAsync();
+            Navigation.PopAsync();
         }
-       
+     
     }
 }
