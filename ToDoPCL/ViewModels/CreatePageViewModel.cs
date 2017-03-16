@@ -105,13 +105,13 @@ namespace ToDoPCL.ViewModels
             mCurrentToDoItem = new ToDoItem();
         }
                 
-        public void AddToDoItem()
+        public Task<int> AddToDoItem()
         {
 
             mCurrentToDoItem.DueDate = this.SetDueDate(DueDate, DueTime.Hours, DueTime.Minutes,
                 DueTime.Seconds);
 
-            ToDoPCL.Database.SaveItemAsync(mCurrentToDoItem);
+            return ToDoPCL.Database.SaveItemAsync(mCurrentToDoItem);
         }
         
         private DateTime SetDueDate(DateTime date, int hour, int minute, int second)

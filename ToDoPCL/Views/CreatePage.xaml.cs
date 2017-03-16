@@ -49,9 +49,10 @@ namespace ToDoPCL
             DueTime.Time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
         }
 
-        public void OnSave(object o, EventArgs e) {
-            VM.AddToDoItem();
-            Clear();
+        public async void OnSave(object o, EventArgs e) {
+            await VM.AddToDoItem();
+            Clear();      //causes problems if we don't wait for the database call to complete - two way binding!!!!
+            await Navigation.PopAsync();
         }
 
         public void OnCancel(object o, EventArgs e) { }
