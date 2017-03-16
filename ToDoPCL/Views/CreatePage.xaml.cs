@@ -57,6 +57,15 @@ namespace ToDoPCL
             await Navigation.PopAsync();
 
         }
+
+        public async void OnDelete(object o, EventArgs e)
+        {
+            await VM.DeleteToDoItem();
+            Clear();
+            await Navigation.PopAsync();
+        }
+
+
         public void OnCancel(object o, EventArgs e) {
             Clear();
             Navigation.PopAsync();

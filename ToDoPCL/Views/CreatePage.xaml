@@ -17,6 +17,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Button BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Save" Clicked="OnSave" />
+                <Button BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Delete" Clicked="OnDelete" />
                 <Button BackgroundColor="Gray"  TextColor="White" WidthRequest="100" Text="Cancel" Clicked="OnCancel" />
             </StackLayout>
         </StackLayout>

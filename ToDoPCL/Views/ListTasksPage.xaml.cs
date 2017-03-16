@@ -17,11 +17,14 @@ namespace ToDoPCL
 
         private ListTasksPageViewModel vm;
 
+        private bool secondLoad;
+
         public ListTasksPage()
 		{
             InitializeComponent();
             vm = new ListTasksPageViewModel();
-            BindingContext = this;			
+            BindingContext = this;
+            secondLoad = false;
 		}
 
         protected override async void OnAppearing()

@@ -16,13 +16,6 @@ namespace ToDoPCL.Models
 
         public ToDoItem()
         {
-        }
-
-        public ToDoItem(string taskName, string priority, DateTime dueDate)
-        {
-            TaskName = taskName;
-            Priority = priority;
-            DueDate = dueDate;
-        }
+        }        
     }
 }

@@ -137,5 +137,10 @@ namespace ToDoPCL.ViewModels
             
             return 0;
         }
+
+        public Task<int> DeleteToDoItem()
+        {
+            return ToDoPCL.Database.DeleteItemAsync(mCurrentToDoItem);
+        }
     }
 }
