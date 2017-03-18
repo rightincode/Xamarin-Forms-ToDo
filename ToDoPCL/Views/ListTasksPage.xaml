@@ -4,7 +4,7 @@
              x:Class="ToDoPCL.ListTasksPage">
     <ContentPage.Content>        
         <StackLayout Padding="30">
-            <Button BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" Clicked="OnAddNew"/>
+            <Button x:Name="addNewItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" />
             <ListView x:Name="ToDoList" ItemTapped="OnSelected" ItemsSource="{Binding VM.ToDoItems}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

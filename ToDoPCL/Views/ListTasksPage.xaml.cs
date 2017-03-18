@@ -17,22 +17,20 @@ namespace ToDoPCL
 
         private ListTasksPageViewModel vm;
 
-        private bool secondLoad;
-
         public ListTasksPage()
 		{
             InitializeComponent();
+            WireUpEventHandlers();
             vm = new ListTasksPageViewModel();
             BindingContext = this;
-            secondLoad = false;
 		}
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await VM.LoadItemsAsync();
-            this.ToDoList.ItemsSource = null;
-            this.ToDoList.ItemsSource = VM.ToDoItems;
+            ToDoList.ItemsSource = null;
+            ToDoList.ItemsSource = VM.ToDoItems;
         }
 
         public async void OnAddNew(object o, EventArgs e)
@@ -43,9 +41,12 @@ namespace ToDoPCL
         public async void OnSelected(object o, ItemTappedEventArgs e)
         {
             VM.SaveSelectedItem(e);
-            //DisplayAlert("Chosen!", VM.SelectedItem.TaskName + " was selected!", "Ok");
-
             await Navigation.PushAsync(new CreatePage(VM.SelectedItem.ID));
+        }
+
+        private void WireUpEventHandlers()
+        {
+            addNewItemBtn.Clicked += OnAddNew;
         }
 	}
 }
