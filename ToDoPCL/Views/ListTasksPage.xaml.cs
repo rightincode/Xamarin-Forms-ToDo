@@ -33,17 +33,17 @@ namespace ToDoPCL
             ToDoList.ItemsSource = VM.ToDoItems;
         }
 
-        public async void OnAddNew(object o, EventArgs e)
-        {
-            await Navigation.PushAsync(new CreatePage());
-        }
-
-        public async void OnSelected(object o, ItemTappedEventArgs e)
+        private async void OnSelected(object o, ItemTappedEventArgs e)
         {
             VM.SaveSelectedItem(e);
             await Navigation.PushAsync(new CreatePage(VM.SelectedItem.ID));
         }
 
+        private async void OnAddNew(object o, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreatePage());
+        }
+        
         private void WireUpEventHandlers()
         {
             addNewItemBtn.Clicked += OnAddNew;

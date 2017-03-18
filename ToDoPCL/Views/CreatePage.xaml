@@ -4,15 +4,15 @@
              x:Class="ToDoPCL.CreatePage">
     <ContentPage.Content>
         <StackLayout Padding="20">
-            <Label Text="New Task" TextColor="Blue" FontSize="18" />
+            <Label x:Name="newTaskLbl" Text="New Task" TextColor="Blue" FontSize="18" />
             <Entry x:Name="TaskName" Placeholder="New To Do Item" WidthRequest="150" Text="{Binding TaskName, Mode=TwoWay}" />
             <Entry x:Name="Priority" Placeholder="Priority" WidthRequest="150" Text="{Binding Priority, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
-                <Label Text="Due Date" VerticalOptions="End" TextColor="Green" />
+                <Label x:Name="dueDateLbl" Text="Due Date" VerticalOptions="End" TextColor="Green" />
                 <DatePicker x:Name="DueDate" Date="{Binding DueDate, Mode=TwoWay}" WidthRequest="100" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Due Time" VerticalOptions="End" TextColor="Green" />
+                <Label x:Name="dueTimeLbl" Text="Due Time" VerticalOptions="End" TextColor="Green" />
                 <TimePicker x:Name="DueTime" Time="{Binding DueTime, Mode=TwoWay}" WidthRequest="100" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">

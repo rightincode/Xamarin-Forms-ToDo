@@ -53,22 +53,21 @@ namespace ToDoPCL
             DueTime.Time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
         }
 
-        public async void OnSave(object o, EventArgs e) {
+        private async void OnSave(object o, EventArgs e) {
             await VM.AddToDoItem();
             Clear();      //causes problems if we don't wait for the database call above to complete - two way binding!!!!
             await Navigation.PopAsync();
 
         }
 
-        public async void OnDelete(object o, EventArgs e)
+        private async void OnDelete(object o, EventArgs e)
         {
             await VM.DeleteToDoItem();
             Clear();
             await Navigation.PopAsync();
         }
-
-
-        public void OnCancel(object o, EventArgs e) {
+        
+        private void OnCancel(object o, EventArgs e) {
             Clear();
             Navigation.PopAsync();
         }
