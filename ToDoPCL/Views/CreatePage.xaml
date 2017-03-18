@@ -16,9 +16,9 @@
                 <TimePicker x:Name="DueTime" Time="{Binding DueTime, Mode=TwoWay}" WidthRequest="100" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Button BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Save" Clicked="OnSave" />
-                <Button BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Delete" Clicked="OnDelete" />
-                <Button BackgroundColor="Gray"  TextColor="White" WidthRequest="100" Text="Cancel" Clicked="OnCancel" />
+                <Button x:Name="saveToDoItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Save" />
+                <Button x:Name="deleteToDoItemBtn" BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Delete" />
+                <Button x:Name="cancelBtn" BackgroundColor="Gray"  TextColor="White" WidthRequest="100" Text="Cancel" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

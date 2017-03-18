@@ -21,6 +21,7 @@ namespace ToDoPCL
 		public CreatePage()
 		{           
             InitializeComponent();
+            WireUpEventHandlers();
             vm = new CreatePageViewModel();
             mTodoListItemId = 0;
             
@@ -31,6 +32,7 @@ namespace ToDoPCL
         public CreatePage(int toDoListItemId)
         {
             InitializeComponent();
+            WireUpEventHandlers();
             vm = new CreatePageViewModel();
             mTodoListItemId = (toDoListItemId > 0) ? toDoListItemId : 0;
             
@@ -69,6 +71,13 @@ namespace ToDoPCL
         public void OnCancel(object o, EventArgs e) {
             Clear();
             Navigation.PopAsync();
+        }
+
+        private void WireUpEventHandlers()
+        {
+            saveToDoItemBtn.Clicked += OnSave;
+            deleteToDoItemBtn.Clicked += OnDelete;
+            cancelBtn.Clicked += OnCancel;
         }
      
     }
