@@ -17,6 +17,12 @@ namespace ToDoPCL
 
         private ListTasksPageViewModel vm;
 
+        //standard values
+        public const string TaskNameFontSize = "16";
+        public const string TaskDetailFontSize = "14";
+        public const string TaskNameFontAttributes = "Bold,Italic";
+        public const string TaskLabelFontAttributes = "Bold";
+
         public ListTasksPage()
 		{
             InitializeComponent();
