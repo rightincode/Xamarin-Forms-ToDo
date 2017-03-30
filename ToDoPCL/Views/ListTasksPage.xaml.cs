@@ -52,6 +52,7 @@ namespace ToDoPCL
         
         private void WireUpEventHandlers()
         {
+            ToDoList.ItemTapped += OnSelected;
             addNewItemBtn.Clicked += OnAddNew;
         }
 	}
