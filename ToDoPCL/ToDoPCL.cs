@@ -14,7 +14,7 @@ namespace ToDoPCL
             {
                 if (database == null)
                 {
-                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLiteSync.db3"));
                 }
 
                 return database;

@@ -132,9 +132,9 @@ namespace ToDoPCL.ViewModels
 
             }
 
-            DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute, 
+            DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute,
                 mCurrentToDoItem.DueDate.Second);
-            
+
             return 0;
         }
 
