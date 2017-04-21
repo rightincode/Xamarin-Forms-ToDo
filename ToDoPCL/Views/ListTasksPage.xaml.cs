@@ -42,7 +42,7 @@ namespace ToDoPCL
         private async void OnSelected(object o, ItemTappedEventArgs e)
         {
             VM.SaveSelectedItem(e);
-            await Navigation.PushAsync(new CreatePage(VM.SelectedItem.ID));
+            await Navigation.PushAsync(new CreatePage(VM.SelectedItem.Id));
         }
 
         private async void OnAddNew(object o, EventArgs e)

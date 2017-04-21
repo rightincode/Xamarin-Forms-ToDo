@@ -8,7 +8,7 @@ namespace ToDoPCL
 	public partial class CreatePage : ContentPage
 	{
         private CreatePageViewModel vm;
-        private int mTodoListItemId;
+        private string mTodoListItemId;
 
         public CreatePageViewModel VM
         {
@@ -23,18 +23,16 @@ namespace ToDoPCL
             InitializeComponent();
             WireUpEventHandlers();
             vm = new CreatePageViewModel();
-            mTodoListItemId = 0;
             
             BindingContext = VM;
             Clear();
         }
 
-        public CreatePage(int toDoListItemId)
+        public CreatePage(string toDoListItemId)
         {
             InitializeComponent();
             WireUpEventHandlers();
             vm = new CreatePageViewModel();
-            mTodoListItemId = (toDoListItemId > 0) ? toDoListItemId : 0;
             
             BindingContext = VM;
             Clear();
@@ -43,7 +41,11 @@ namespace ToDoPCL
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await VM.LoadToDoListItem(mTodoListItemId);
+
+            if (!string.IsNullOrEmpty(mTodoListItemId))
+            {
+                await VM.LoadToDoListItem(mTodoListItemId);
+            }            
         }
 
         private void Clear()

@@ -121,9 +121,9 @@ namespace ToDoPCL.ViewModels
             return retVal;
         }
 
-        public async Task<int> LoadToDoListItem(int toDoListItemId)
+        public async Task<int> LoadToDoListItem(string toDoListItemId)
         {
-            if (toDoListItemId > 0)
+            if (!string.IsNullOrEmpty(toDoListItemId))
             {
                 mCurrentToDoItem = await ToDoPCL.Database.GetItemAsync(toDoListItemId);
                 TaskName = mCurrentToDoItem.TaskName;

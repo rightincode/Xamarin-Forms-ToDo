@@ -26,14 +26,14 @@ namespace ToDoPCL.Data
             return database.Table<ToDoItem>().ToListAsync();
         }
 
-        public Task<ToDoItem> GetItemAsync(int id)
+        public Task<ToDoItem> GetItemAsync(string id)
         {
-            return database.Table<ToDoItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
+            return database.Table<ToDoItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
         public Task<int> SaveItemAsync(ToDoItem item)
         {
-            if (item.ID != 0)
+            if (GetItemAsync(item.Id) != null)
             {
                 return database.UpdateAsync(item);
             }
