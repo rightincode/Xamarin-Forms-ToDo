@@ -8,7 +8,7 @@ namespace ToDoPCL.ViewModels
 {
     public class ListTasksPageViewModel
     {
-        public IEnumerable<ToDoItem> ToDoItems
+        public List<ToDoItem> ToDoItems
         {
             get
             {
@@ -29,7 +29,7 @@ namespace ToDoPCL.ViewModels
             }
         }
 
-        private IEnumerable<ToDoItem> toDoItems;
+        private List<ToDoItem> toDoItems;
         private ToDoItem selectedItem;
 
         public ListTasksPageViewModel()

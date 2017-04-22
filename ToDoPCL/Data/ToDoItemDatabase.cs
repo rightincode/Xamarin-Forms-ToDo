@@ -61,13 +61,13 @@ namespace ToDoPCL.Data
             isInitialized = true;
         }
 
-        public async Task<IEnumerable<ToDoItem>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<List<ToDoItem>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
             if (forceRefresh)
                 await PullLatestAsync();
 
-            return await itemsTable.ToEnumerableAsync();
+            return await itemsTable.ToListAsync();
         }
 
         public async Task<ToDoItem> GetItemAsync(string id)

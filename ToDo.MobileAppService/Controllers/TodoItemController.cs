@@ -15,7 +15,7 @@ namespace ToDo.MobileAppService.Controllers
         {
             base.Initialize(controllerContext);
             MobileServiceContext context = new MobileServiceContext();
-            DomainManager = new EntityDomainManager<ToDoItem>(context, Request);
+            DomainManager = new EntityDomainManager<ToDoItem>(context, Request, true);
         }
 
         // GET tables/TodoItem

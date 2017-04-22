@@ -34,12 +34,25 @@ namespace ToDoPCL
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await VM.LoadItemsAsync();
+            await VM.LoadItemsAsync(true);
             ToDoList.ItemsSource = null;
             ToDoList.ItemsSource = VM.ToDoItems;
         }
 
-        private async void OnSelected(object o, ItemTappedEventArgs e)
+        //private async void OnSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    if (e.SelectedItem == null) //deselection occurred
+        //    {
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        VM.SaveSelectedItem(e);
+        //        await Navigation.PushAsync(new CreatePage(VM.SelectedItem.Id));
+        //    }
+        //}
+
+        private async void OnTapped(object o, ItemTappedEventArgs e)
         {
             VM.SaveSelectedItem(e);
             await Navigation.PushAsync(new CreatePage(VM.SelectedItem.Id));
@@ -49,11 +62,23 @@ namespace ToDoPCL
         {
             await Navigation.PushAsync(new CreatePage());
         }
+
+        public async void OnListRefresh(object sender, EventArgs e)
+        {
+            await VM.LoadItemsAsync(true);
+            ToDoList.ItemsSource = null;
+            ToDoList.ItemsSource = VM.ToDoItems;
+            ToDoList.IsRefreshing = false;
+        }
         
         private void WireUpEventHandlers()
         {
-            ToDoList.ItemTapped += OnSelected;
+            ToDoList.Refreshing += OnListRefresh;
+            ToDoList.ItemTapped += OnTapped;
+            //ToDoList.ItemSelected += OnSelected;
             addNewItemBtn.Clicked += OnAddNew;
+
+            ToDoList.IsPullToRefreshEnabled = true;
         }
 	}
 }
