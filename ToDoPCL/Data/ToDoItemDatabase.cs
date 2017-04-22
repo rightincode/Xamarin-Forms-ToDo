@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-
-using SQLite;
-using Xamarin.Forms;
 
 using ToDoPCL.Models;
 
@@ -19,7 +14,6 @@ namespace ToDoPCL.Data
 {
     public class ToDoItemDatabase : IDataStore<ToDoItem>
     {
-        readonly SQLiteAsyncConnection database;
         private string _dbPath;
         private readonly string azureMobileAppUrl = "https://xformstodo.azurewebsites.net";
 
@@ -30,9 +24,6 @@ namespace ToDoPCL.Data
 
         public ToDoItemDatabase(string dbPath)
         {
-            database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<ToDoItem>().Wait();
-
             _dbPath = dbPath;
         }
 
@@ -70,35 +61,53 @@ namespace ToDoPCL.Data
             isInitialized = true;
         }
 
-        public async Task<List<ToDoItem>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<ToDoItem>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
             if (forceRefresh)
                 await PullLatestAsync();
 
-            return await itemsTable.ToListAsync();
+            return await itemsTable.ToEnumerableAsync();
         }
 
-        public Task<ToDoItem> GetItemAsync(string id)
+        public async Task<ToDoItem> GetItemAsync(string id)
         {
-            return database.Table<ToDoItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            await InitializeAsync();
+            await PullLatestAsync();
+            var items = await itemsTable.Where(s => s.Id == id).ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items[0];
         }
 
-        public Task<int> SaveItemAsync(ToDoItem item)
+        public async Task<bool> SaveItemAsync(ToDoItem item)
         {
-            if (GetItemAsync(item.Id) != null)
+            await InitializeAsync();
+            await PullLatestAsync();
+
+            if (item.AzureVersion != null)
             {
-                return database.UpdateAsync(item);
+                await itemsTable.UpdateAsync(item);
             }
             else
             {
-                return database.InsertAsync(item);
+                await itemsTable.InsertAsync(item);
             }
+
+            await SyncAsync();
+            return true;
         }
 
-        public Task<int> DeleteItemAsync(ToDoItem item)
+        public async Task<bool> DeleteItemAsync(ToDoItem item)
         {
-            return database.DeleteAsync(item);
+            await InitializeAsync();
+            await PullLatestAsync();
+            await itemsTable.DeleteAsync(item);
+            await SyncAsync();
+
+            return true;
         }
 
         public async Task<bool> PullLatestAsync()
@@ -117,6 +126,51 @@ namespace ToDoPCL.Data
                 Debug.WriteLine("Unable to pull items, that is alright as we have offline capabilities: " + ex);
                 return false;
             }
+            return true;
+        }
+
+        public async Task<bool> SyncAsync()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                Debug.WriteLine("Unable to sync items, we are offline");
+                return false;
+            }
+            try
+            {
+                await MobileService.SyncContext.PushAsync();
+                if (!(await PullLatestAsync().ConfigureAwait(false)))
+                    return false;
+            }
+            catch (MobileServicePushFailedException exc)
+            {
+                if (exc.PushResult == null)
+                {
+                    Debug.WriteLine("Unable to sync, that is alright as we have offline capabilities: " + exc);
+                    return false;
+                }
+                foreach (var error in exc.PushResult.Errors)
+                {
+                    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
+                    {
+                        //Update failed, reverting to server's copy.
+                        await error.CancelAndUpdateItemAsync(error.Result);
+                    }
+                    else
+                    {
+                        // Discard local change.
+                        await error.CancelAndDiscardItemAsync();
+                    }
+
+                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to sync items, that is alright as we have offline capabilities: " + ex);
+                return false;
+            }
+
             return true;
         }
     }

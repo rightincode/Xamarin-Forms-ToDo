@@ -23,7 +23,7 @@ namespace ToDoPCL
             InitializeComponent();
             WireUpEventHandlers();
             vm = new CreatePageViewModel();
-            
+            mTodoListItemId = string.Empty;
             BindingContext = VM;
             Clear();
         }
@@ -33,7 +33,7 @@ namespace ToDoPCL
             InitializeComponent();
             WireUpEventHandlers();
             vm = new CreatePageViewModel();
-            
+            mTodoListItemId = toDoListItemId;
             BindingContext = VM;
             Clear();
         }
@@ -41,11 +41,7 @@ namespace ToDoPCL
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            if (!string.IsNullOrEmpty(mTodoListItemId))
-            {
-                await VM.LoadToDoListItem(mTodoListItemId);
-            }            
+            await VM.LoadToDoListItem(mTodoListItemId);
         }
 
         private void Clear()

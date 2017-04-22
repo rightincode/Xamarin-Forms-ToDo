@@ -12,6 +12,7 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Padding="5">
+                                    <!--<Label x:Name="TaskIdDisplay" Text="{Binding Id}" />-->
                                     <Label x:Name="TaskNameDisplay" Text="{Binding TaskName}" 
                                            FontSize="{ x:Static me:ListTasksPage.TaskNameFontSize }" 
                                            FontAttributes="{ x:Static me:ListTasksPage.TaskNameFontAttributes }"

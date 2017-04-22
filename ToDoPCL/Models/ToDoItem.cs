@@ -8,8 +8,11 @@ namespace ToDoPCL.Models
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
+        [JsonProperty(PropertyName = "taskName")]
         public string TaskName { get; set; }
+        [JsonProperty(PropertyName = "priority")]
         public string Priority { get; set; }
+        [JsonProperty(PropertyName = "dueDate")]
         public DateTime DueDate { get; set; }
 
         //azure specific attributes
@@ -24,8 +27,12 @@ namespace ToDoPCL.Models
 
 
         public ToDoItem()
+        {            
+        }
+        
+        public void SetToDoItemId()
         {
             Id = Guid.NewGuid().ToString();
-        }        
+        }
     }
 }
