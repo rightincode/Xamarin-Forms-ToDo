@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 
 using ToDoPCL.Data;
+using ToDoPCL.Interfaces;
 
 namespace ToDoPCL
 {
@@ -21,6 +22,20 @@ namespace ToDoPCL
             }
         }
 
+        static IAuthenticate authenticator;
+
+        public static IAuthenticate Authenticator {
+            get {
+
+                if (authenticator == null)
+                {
+                    authenticator = DependencyService.Get<IAuthenticate>();
+                }
+
+                return authenticator;
+            }
+        }
+        
         public ToDoPCL()
         {
             MainPage = new NavigationPage(new ListTasksPage());

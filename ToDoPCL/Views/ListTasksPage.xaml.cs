@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using ToDoPCL.ViewModels;
@@ -16,6 +17,7 @@ namespace ToDoPCL
         }
 
         private ListTasksPageViewModel vm;
+        private bool authenticated = false;
 
         //standard values
         public const string TaskNameFontSize = "16";
@@ -34,23 +36,22 @@ namespace ToDoPCL
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await VM.LoadItemsAsync(true);
-            ToDoList.ItemsSource = null;
-            ToDoList.ItemsSource = VM.ToDoItems;
-        }
 
-        //private async void OnSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    if (e.SelectedItem == null) //deselection occurred
-        //    {
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        VM.SaveSelectedItem(e);
-        //        await Navigation.PushAsync(new CreatePage(VM.SelectedItem.Id));
-        //    }
-        //}
+            if (authenticated)
+            {
+                loginBtn.IsVisible = false;
+                addNewItemBtn.IsVisible = true;
+                ToDoList.IsVisible = true;
+
+                await RefreshTaskList();
+            }
+            else
+            {
+                loginBtn.IsVisible = true;
+                addNewItemBtn.IsVisible = false;
+                ToDoList.IsVisible = false;
+            }            
+        }
 
         private async void OnTapped(object o, ItemTappedEventArgs e)
         {
@@ -65,20 +66,38 @@ namespace ToDoPCL
 
         public async void OnListRefresh(object sender, EventArgs e)
         {
-            await VM.LoadItemsAsync(true);
-            ToDoList.ItemsSource = null;
-            ToDoList.ItemsSource = VM.ToDoItems;
-            ToDoList.IsRefreshing = false;
+            await RefreshTaskList();
         }
         
+        public async void OnLogin(object sender, EventArgs e)
+        {
+            if (ToDoPCL.Authenticator != null)
+            {
+                authenticated = await ToDoPCL.Authenticator.Authenticate();
+
+                if (authenticated)
+                {
+                    await RefreshTaskList();
+                }
+            }
+        }
+
         private void WireUpEventHandlers()
         {
             ToDoList.Refreshing += OnListRefresh;
             ToDoList.ItemTapped += OnTapped;
-            //ToDoList.ItemSelected += OnSelected;
             addNewItemBtn.Clicked += OnAddNew;
+            loginBtn.Clicked += OnLogin;
 
             ToDoList.IsPullToRefreshEnabled = true;
+        }
+
+        private async Task RefreshTaskList()
+        {
+            await VM.LoadItemsAsync(true);
+            ToDoList.ItemsSource = null;
+            ToDoList.ItemsSource = VM.ToDoItems;
+            ToDoList.IsRefreshing = false;
         }
 	}
 }

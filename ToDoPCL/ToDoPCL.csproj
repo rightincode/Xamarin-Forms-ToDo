@@ -38,6 +38,7 @@
     <Compile Include="Data\IDataStore.cs" />
     <Compile Include="Data\IFileHelper.cs" />
     <Compile Include="Data\ToDoItemDatabase.cs" />
+    <Compile Include="Interfaces\IAuthenticate.cs" />
     <Compile Include="Models\ToDoItem.cs" />
     <Compile Include="ToDoPCL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
