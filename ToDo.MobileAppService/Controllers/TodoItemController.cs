@@ -9,6 +9,7 @@ using ToDo.MobileAppService.Models;
 
 namespace ToDo.MobileAppService.Controllers
 {
+    [Authorize]
     public class TodoItemController : TableController<ToDoItem>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
