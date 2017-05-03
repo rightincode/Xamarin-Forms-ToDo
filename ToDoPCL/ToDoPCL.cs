@@ -31,14 +31,15 @@ namespace ToDoPCL
                 if (authenticator == null)
                 {
                     authenticator = DependencyService.Get<IAuthenticate>();
-                    authenticator.SetClient(currentAppContext);
+
+                    if (Device.OS != TargetPlatform.Windows)
+                    {
+                        authenticator.SetClient(currentAppContext);
+                    }                    
                 }
 
                 return authenticator;
             }
-            //private set {
-            //    authenticator = value;
-            //}
         }
 
         public static void Init(object CurrentAppContext)

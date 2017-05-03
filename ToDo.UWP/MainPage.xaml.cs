@@ -25,6 +25,7 @@ namespace ToDo.UWP
         public MainPage()
         {
             this.InitializeComponent();
+            ToDoPCL.ToDoPCL.Init(this);
             LoadApplication(new ToDoPCL.ToDoPCL());
         }
     }
