@@ -27,13 +27,21 @@ namespace ToDoPCL
         public static IAuthenticate Authenticator {
             get {
 
-                if (authenticator == null)
-                {
-                    authenticator = DependencyService.Get<IAuthenticate>();
-                }
+                //if (authenticator == null)
+                //{
+                //    authenticator = DependencyService.Get<IAuthenticate>();
+                //}
 
                 return authenticator;
             }
+            private set {
+                authenticator = value;
+            }
+        }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
         }
         
         public ToDoPCL()

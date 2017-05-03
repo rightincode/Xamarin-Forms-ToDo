@@ -68,6 +68,7 @@ namespace ToDoPCL
         {
             if (ToDoPCL.Authenticator != null)
             {
+                await ToDoPCL.Database.InitializeAsync();
                 authenticated = await ToDoPCL.Authenticator.Authenticate();
 
                 if (authenticated)
@@ -82,12 +83,29 @@ namespace ToDoPCL
             }
         }
 
+        public async void OnLogout(object sender, EventArgs e)
+        {
+            await ToDoPCL.Database.InitializeAsync();
+            authenticated = await ToDoPCL.Authenticator.Logout();
+
+            if (authenticated)
+            {
+                SetAuthenticatedUi();
+                await RefreshTaskList();
+            }
+            else
+            {
+                SetNotAuthenticatedUi();
+            }
+        }
+
         private void WireUpEventHandlers()
         {
             ToDoList.Refreshing += OnListRefresh;
             ToDoList.ItemTapped += OnTapped;
             addNewItemBtn.Clicked += OnAddNew;
             loginBtn.Clicked += OnLogin;
+            logoutBtn.Clicked += OnLogout;
 
             ToDoList.IsPullToRefreshEnabled = true;
         }
@@ -103,6 +121,7 @@ namespace ToDoPCL
         private void SetAuthenticatedUi()
         {
             loginBtn.IsVisible = false;
+            logoutBtn.IsVisible = true;
             addNewItemBtn.IsVisible = true;
             ToDoList.IsVisible = true;
         }
@@ -110,6 +129,7 @@ namespace ToDoPCL
         private void SetNotAuthenticatedUi()
         {
             loginBtn.IsVisible = true;
+            logoutBtn.IsVisible = false;
             addNewItemBtn.IsVisible = false;
             ToDoList.IsVisible = false;
         }
