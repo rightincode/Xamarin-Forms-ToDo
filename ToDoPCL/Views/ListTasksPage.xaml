@@ -6,7 +6,7 @@
     <ContentPage.Content>        
         <StackLayout Padding="30">
             <Button x:Name="loginBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Please Login" />
-            <Button x:Name="logoutBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Logout" />
+            <Button x:Name="logoutBtn" BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Logout" />
             <Button x:Name="addNewItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" />            
             <ListView x:Name="ToDoList" ItemsSource="{Binding VM.ToDoItems}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
