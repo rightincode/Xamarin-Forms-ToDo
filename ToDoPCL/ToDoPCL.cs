@@ -22,28 +22,30 @@ namespace ToDoPCL
             }
         }
 
+        static object currentAppContext;
         static IAuthenticate authenticator;
 
         public static IAuthenticate Authenticator {
             get {
 
-                //if (authenticator == null)
-                //{
-                //    authenticator = DependencyService.Get<IAuthenticate>();
-                //}
+                if (authenticator == null)
+                {
+                    authenticator = DependencyService.Get<IAuthenticate>();
+                    authenticator.SetClient(currentAppContext);
+                }
 
                 return authenticator;
             }
-            private set {
-                authenticator = value;
-            }
+            //private set {
+            //    authenticator = value;
+            //}
         }
 
-        public static void Init(IAuthenticate authenticator)
+        public static void Init(object CurrentAppContext)
         {
-            Authenticator = authenticator;
+            currentAppContext = CurrentAppContext;
         }
-        
+
         public ToDoPCL()
         {
             MainPage = new NavigationPage(new ListTasksPage());
