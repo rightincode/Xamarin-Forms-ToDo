@@ -39,17 +39,12 @@ namespace ToDoPCL
 
             if (authenticated)
             {
-                loginBtn.IsVisible = false;
-                addNewItemBtn.IsVisible = true;
-                ToDoList.IsVisible = true;
-
+                SetAuthenticatedUi();
                 await RefreshTaskList();
             }
             else
             {
-                loginBtn.IsVisible = true;
-                addNewItemBtn.IsVisible = false;
-                ToDoList.IsVisible = false;
+                SetNotAuthenticatedUi();
             }            
         }
 
@@ -77,7 +72,12 @@ namespace ToDoPCL
 
                 if (authenticated)
                 {
+                    SetAuthenticatedUi();
                     await RefreshTaskList();
+                }
+                else
+                {
+                    SetNotAuthenticatedUi();
                 }
             }
         }
@@ -98,6 +98,20 @@ namespace ToDoPCL
             ToDoList.ItemsSource = null;
             ToDoList.ItemsSource = VM.ToDoItems;
             ToDoList.IsRefreshing = false;
+        }
+
+        private void SetAuthenticatedUi()
+        {
+            loginBtn.IsVisible = false;
+            addNewItemBtn.IsVisible = true;
+            ToDoList.IsVisible = true;
+        }
+
+        private void SetNotAuthenticatedUi()
+        {
+            loginBtn.IsVisible = true;
+            addNewItemBtn.IsVisible = false;
+            ToDoList.IsVisible = false;
         }
 	}
 }
