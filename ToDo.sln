@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Droid", "Targets\ToDo.Droid\ToDo.Droid.csproj", "{72327EDB-D9CD-4473-BE21-77A9B3FED1B9}"
 EndProject
@@ -211,6 +211,8 @@ Global
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|ARM.Build.0 = Debug|ARM
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|ARM.Deploy.0 = Debug|ARM
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|iPhone.ActiveCfg = Debug|x86
+		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|iPhone.Build.0 = Debug|x86
+		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|iPhone.Deploy.0 = Debug|x86
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|x64.ActiveCfg = Debug|x64
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8}.Debug|x64.Build.0 = Debug|x64
@@ -259,7 +261,6 @@ Global
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|ARM.Build.0 = Debug|Any CPU
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -286,5 +287,8 @@ Global
 		{72327EDB-D9CD-4473-BE21-77A9B3FED1B9} = {4C7952AD-DDD0-46E4-B2F4-05D86EE105C9}
 		{B9941388-BCB1-4539-BFAA-F7265E1966F8} = {4C7952AD-DDD0-46E4-B2F4-05D86EE105C9}
 		{56E9070B-AF47-4BB8-8E21-BF861D34BDD5} = {90E5138A-A1B3-49B2-A686-B16C79C8631D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9203DB8C-7230-43A7-B27B-12FBE2AB30B9}
 	EndGlobalSection
 EndGlobal
