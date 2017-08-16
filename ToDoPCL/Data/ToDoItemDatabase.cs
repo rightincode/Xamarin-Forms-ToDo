@@ -34,10 +34,13 @@ namespace ToDoPCL.Data
                 return;
             }
 
+            #region commented_code
             //AuthenticationHandler handler = null;
 
             //if (UseAuthentication)
             //    handler = new AuthenticationHandler();
+
+            #endregion
 
             MobileService = new MobileServiceClient(azureMobileAppUrl)
             {
@@ -47,11 +50,14 @@ namespace ToDoPCL.Data
                 }
             };
 
+            #region commented_code
             //if (UseAuthentication && !string.IsNullOrWhiteSpace(Settings.AuthToken) && !string.IsNullOrWhiteSpace(Settings.UserId))
             //{
             //    MobileService.CurrentUser = new MobileServiceUser(Settings.UserId);
             //    MobileService.CurrentUser.MobileServiceAuthenticationToken = Settings.AuthToken;
             //}
+
+#endregion
 
             var store = new MobileServiceSQLiteStore(_dbPath);
             store.DefineTable<ToDoItem>();

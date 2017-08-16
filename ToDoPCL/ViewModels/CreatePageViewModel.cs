@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using ToDoPCL.Models;
 
 namespace ToDoPCL.ViewModels
@@ -163,6 +163,34 @@ namespace ToDoPCL.ViewModels
         public async Task<bool> DeleteToDoItem()
         {
             return await ToDoPCL.Database.DeleteItemAsync(mCurrentToDoItem);
+        }
+
+        //not used at the moment
+        public class AddToDoItemCommand : ICommand
+        {
+            event EventHandler ICommand.CanExecuteChanged
+            {
+                add
+                {
+                    throw new NotImplementedException();
+                }
+
+                remove
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            bool ICommand.CanExecute(object parameter)
+            {
+                //throw new NotImplementedException();
+                return true;
+            }
+
+            void ICommand.Execute(object parameter)
+            {
+                //AddToDoItem();
+            }
         }
     }
 }
