@@ -133,28 +133,28 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Mobile.Client">
-      <Version>3.1.0</Version>
+      <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore">
-      <Version>3.1.0</Version>
+      <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bcl.Build">
       <Version>1.0.21</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.2.3</Version>
+      <Version>6.0.8</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.2</Version>
+      <Version>11.0.1</Version>
     </PackageReference>
     <PackageReference Include="SQLitePCL">
       <Version>3.8.7.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Connectivity">
-      <Version>2.3.0</Version>
+      <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>2.3.3.193</Version>
+      <Version>2.5.0.280555</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
