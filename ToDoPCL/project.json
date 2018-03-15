@@ -6,6 +6,7 @@
     "Microsoft.Bcl.Build": "1.0.21",
     "Newtonsoft.Json": "10.0.2",
     "SQLitePCL": "3.8.7.2",
+    "System.ComponentModel.Annotations": "4.4.0",
     "Xam.Plugin.Connectivity": "2.3.0",
     "Xamarin.Forms": "2.3.3.193"
   },

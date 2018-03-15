@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ToDoPCL.Models;
 
 namespace ToDoPCL.ViewModels
 {
-    public class CreatePageViewModel : INotifyPropertyChanged
+    public class CreatePageViewModel : INotifyPropertyChanged//, IValidatableObject
     {
         private ToDoItem mCurrentToDoItem;
         private string mTaskId;
