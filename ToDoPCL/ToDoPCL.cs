@@ -32,10 +32,13 @@ namespace ToDoPCL
                 {
                     authenticator = DependencyService.Get<IAuthenticate>();
 
-                    if (Device.OS != TargetPlatform.Windows)
+                    if (Device.RuntimePlatform != Device.UWP)
                     {
                         authenticator.SetClient(currentAppContext);
-                    }                    
+                    } else
+                    {
+                        authenticator.SetClient(Database.MobileService);
+                    }                   
                 }
 
                 return authenticator;

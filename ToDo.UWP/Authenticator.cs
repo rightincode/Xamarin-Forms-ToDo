@@ -12,9 +12,16 @@ namespace ToDo.UWP
 {
     public class Authenticator : IAuthenticate
     {
+        private MobileServiceClient _currentMobileClient;
+
+        public object GetClient()
+        {
+            return _currentMobileClient;
+        }
+
         public void SetClient(object client)
         {
-            throw new NotImplementedException("Method SetClient not implemented!");
+            _currentMobileClient = (MobileServiceClient)client;            
         }
 
         public async Task<bool> Authenticate()
@@ -26,7 +33,7 @@ namespace ToDo.UWP
             {
                 // Sign in with Azure Active Directory, login using a server-managed flow.
                 var user = await ToDoPCL.ToDoPCL.Database.MobileService.LoginAsync(
-                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory);
+                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, "xformstodo");
 
                 if (user != null)
                 {

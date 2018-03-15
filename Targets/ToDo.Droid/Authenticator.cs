@@ -23,6 +23,11 @@ namespace ToDo.Droid
     {
         private Context currentClient;
 
+        public object GetClient()
+        {
+            return currentClient;
+        }
+
         public void SetClient(object client)
         {
             currentClient = (Context)client;
@@ -36,8 +41,8 @@ namespace ToDo.Droid
             try
             {
                 // Sign in with Azure Active Directory, login using a server-managed flow.
-                var user = await ToDoPCL.ToDoPCL.Database.MobileService.LoginAsync(currentClient,
-                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory);
+                var user = await ToDoPCL.ToDoPCL.Database.MobileService.LoginAsync(currentClient, 
+                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, "xformstodo");
 
                 if (user != null)
                 {

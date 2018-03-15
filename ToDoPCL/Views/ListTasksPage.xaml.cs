@@ -69,6 +69,12 @@ namespace ToDoPCL
             if (ToDoPCL.Authenticator != null)
             {
                 await ToDoPCL.Database.InitializeAsync();
+                
+                if (Device.RuntimePlatform == Device.UWP)
+                {
+                    ToDoPCL.Authenticator.SetClient(ToDoPCL.Database.MobileService);
+                }
+
                 authenticated = await ToDoPCL.Authenticator.Authenticate();
 
                 if (authenticated)

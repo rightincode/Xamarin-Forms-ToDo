@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace ToDo.UWP
 {
@@ -96,6 +97,21 @@ namespace ToDo.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                ProtocolActivatedEventArgs protocolArgs = args as ProtocolActivatedEventArgs;
+                var currentClient = (MobileServiceClient) ToDoPCL.ToDoPCL.Authenticator.GetClient();
+                if (currentClient != null)
+                {
+                    currentClient.ResumeWithURL(protocolArgs.Uri);
+                }
+            }
         }
     }
 }
