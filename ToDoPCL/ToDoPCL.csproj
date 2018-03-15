@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\IDataStore.cs" />
     <Compile Include="Data\IFileHelper.cs" />
     <Compile Include="Data\ToDoItemDatabase.cs" />
+    <Compile Include="Interfaces\IAuthenticate.cs" />
     <Compile Include="Models\ToDoItem.cs" />
     <Compile Include="ToDoPCL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +66,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -36,9 +36,9 @@ namespace ToDoPCL.ViewModels
         {
         }
 
-        public async Task<int> LoadItemsAsync()
+        public async Task<int> LoadItemsAsync(bool forceRefresh = false)
         {
-            ToDoItems = await ToDoPCL.Database.GetItemsAsync();
+            ToDoItems = await ToDoPCL.Database.GetItemsAsync(forceRefresh);
             return 0;
         }
 

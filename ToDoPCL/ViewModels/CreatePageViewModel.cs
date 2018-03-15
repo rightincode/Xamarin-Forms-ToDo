@@ -1,14 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using ToDoPCL.Models;
 
 namespace ToDoPCL.ViewModels
 {
-    public class CreatePageViewModel : INotifyPropertyChanged
+    public class CreatePageViewModel : INotifyPropertyChanged//, IValidatableObject
     {
         private ToDoItem mCurrentToDoItem;
+        private string mTaskId;
         private string mTaskName;
         private string mPriority;
         private DateTime mDueDate;
@@ -34,6 +36,23 @@ namespace ToDoPCL.ViewModels
 
         //    }
         //}
+
+        public string Id
+        {
+            get
+            {
+                return mTaskId;
+            }
+            set
+            {
+                mTaskId = mCurrentToDoItem.Id = value;
+
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Id"));
+                }
+            }
+        }
 
         public string TaskName
         {
@@ -105,13 +124,13 @@ namespace ToDoPCL.ViewModels
             mCurrentToDoItem = new ToDoItem();
         }
                 
-        public Task<int> AddToDoItem()
+        public async Task<bool> AddToDoItem()
         {
 
             mCurrentToDoItem.DueDate = this.SetDueDate(DueDate, DueTime.Hours, DueTime.Minutes,
                 DueTime.Seconds);
 
-            return ToDoPCL.Database.SaveItemAsync(mCurrentToDoItem);
+            return await ToDoPCL.Database.SaveItemAsync(mCurrentToDoItem);
         }
         
         private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
@@ -121,26 +140,58 @@ namespace ToDoPCL.ViewModels
             return retVal;
         }
 
-        public async Task<int> LoadToDoListItem(int toDoListItemId)
+        public async Task<int> LoadToDoListItem(string toDoListItemId)
         {
-            if (toDoListItemId > 0)
+            if (!string.IsNullOrEmpty(toDoListItemId))
             {
                 mCurrentToDoItem = await ToDoPCL.Database.GetItemAsync(toDoListItemId);
+                Id = mCurrentToDoItem.Id;
                 TaskName = mCurrentToDoItem.TaskName;
                 Priority = mCurrentToDoItem.Priority;
                 DueDate = mCurrentToDoItem.DueDate;
 
+            } else
+            {
+                mCurrentToDoItem.SetToDoItemId();
             }
 
-            DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute, 
+            DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute,
                 mCurrentToDoItem.DueDate.Second);
-            
+
             return 0;
         }
 
-        public Task<int> DeleteToDoItem()
+        public async Task<bool> DeleteToDoItem()
         {
-            return ToDoPCL.Database.DeleteItemAsync(mCurrentToDoItem);
+            return await ToDoPCL.Database.DeleteItemAsync(mCurrentToDoItem);
+        }
+
+        //not used at the moment
+        public class AddToDoItemCommand : ICommand
+        {
+            event EventHandler ICommand.CanExecuteChanged
+            {
+                add
+                {
+                    throw new NotImplementedException();
+                }
+
+                remove
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            bool ICommand.CanExecute(object parameter)
+            {
+                //throw new NotImplementedException();
+                return true;
+            }
+
+            void ICommand.Execute(object parameter)
+            {
+                //AddToDoItem();
+            }
         }
     }
 }

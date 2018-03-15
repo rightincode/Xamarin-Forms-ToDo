@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 
 using ToDoPCL.Data;
+using ToDoPCL.Interfaces;
 
 namespace ToDoPCL
 {
@@ -14,11 +15,36 @@ namespace ToDoPCL
             {
                 if (database == null)
                 {
-                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLiteSync2.db3"));
                 }
 
                 return database;
             }
+        }
+
+        static object currentAppContext;
+        static IAuthenticate authenticator;
+
+        public static IAuthenticate Authenticator {
+            get {
+
+                if (authenticator == null)
+                {
+                    authenticator = DependencyService.Get<IAuthenticate>();
+
+                    if (Device.OS != TargetPlatform.Windows)
+                    {
+                        authenticator.SetClient(currentAppContext);
+                    }                    
+                }
+
+                return authenticator;
+            }
+        }
+
+        public static void Init(object CurrentAppContext)
+        {
+            currentAppContext = CurrentAppContext;
         }
 
         public ToDoPCL()
