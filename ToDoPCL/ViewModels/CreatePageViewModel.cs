@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ToDoPCL.Interfaces;
 using ToDoPCL.Models;
+using ToDoPCL.Data;
 
 namespace ToDoPCL.ViewModels
 {
@@ -15,6 +16,8 @@ namespace ToDoPCL.ViewModels
         private string mPriority;
         private DateTime mDueDate;
         private TimeSpan mDueTime;
+
+        private IDataStore<ToDoItem> mDataStore;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -119,18 +122,18 @@ namespace ToDoPCL.ViewModels
             }
         }
 
-        public CreatePageViewModel(IToDoItem currentToDoItem)
+        public CreatePageViewModel(IToDoItem currentToDoItem, IDataStore<ToDoItem> dataStore)
         {
             mCurrentToDoItem = currentToDoItem;
+            mDataStore = dataStore;
         }
                 
         public async Task<bool> AddToDoItem()
         {
-
             mCurrentToDoItem.DueDate = this.SetDueDate(DueDate, DueTime.Hours, DueTime.Minutes,
                 DueTime.Seconds);
 
-            return await ToDoPCL.Database.SaveItemAsync((ToDoItem)mCurrentToDoItem);
+            return await mDataStore.SaveItemAsync((ToDoItem)mCurrentToDoItem);
         }
         
         private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
@@ -144,7 +147,7 @@ namespace ToDoPCL.ViewModels
         {
             if (!string.IsNullOrEmpty(toDoListItemId))
             {
-                mCurrentToDoItem = await ToDoPCL.Database.GetItemAsync(toDoListItemId);
+                mCurrentToDoItem = await mDataStore.GetItemAsync(toDoListItemId);
                 Id = mCurrentToDoItem.Id;
                 TaskName = mCurrentToDoItem.TaskName;
                 Priority = mCurrentToDoItem.Priority;
@@ -163,7 +166,7 @@ namespace ToDoPCL.ViewModels
 
         public async Task<bool> DeleteToDoItem()
         {
-            return await ToDoPCL.Database.DeleteItemAsync((ToDoItem)mCurrentToDoItem);
+            return await mDataStore.DeleteItemAsync((ToDoItem)mCurrentToDoItem);
         }
 
         //not used at the moment

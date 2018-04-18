@@ -24,7 +24,7 @@ namespace ToDoPCL
 		{           
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel(new ToDoItem());
+            vm = new CreatePageViewModel(new ToDoItem(), ToDoPCL.Database);
             mTodoListItemId = string.Empty;
             BindingContext = VM;
             Clear();
@@ -34,7 +34,7 @@ namespace ToDoPCL
         {
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel(new ToDoItem());
+            vm = new CreatePageViewModel(new ToDoItem(), ToDoPCL.Database);
             mTodoListItemId = toDoListItemId;
             BindingContext = VM;
             Clear();
