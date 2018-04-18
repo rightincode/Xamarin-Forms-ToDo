@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
+using ToDoPCL.Interfaces;
 
 namespace ToDoPCL.Models
 {
-    public class ToDoItem
+    public class ToDoItem : IToDoItem
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
@@ -24,8 +25,7 @@ namespace ToDoPCL.Models
 
         [Version]
         public string AzureVersion { get; set; }
-
-
+        
         public ToDoItem()
         {            
         }
