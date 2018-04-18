@@ -5,7 +5,6 @@ namespace ToDoPCL.Data
 {
     public interface IDataStore<T>
     {
-
         Task<List<T>> GetItemsAsync(bool forceRefresh = false);
         Task<T> GetItemAsync(string id);
         Task<bool> SaveItemAsync(T item);

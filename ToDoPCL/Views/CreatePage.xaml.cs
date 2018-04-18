@@ -2,6 +2,8 @@
 using Xamarin.Forms;
 
 using ToDoPCL.ViewModels;
+using ToDoPCL.Interfaces;
+using ToDoPCL.Models;
 
 namespace ToDoPCL
 {
@@ -22,7 +24,7 @@ namespace ToDoPCL
 		{           
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel();
+            vm = new CreatePageViewModel(new ToDoItem());
             mTodoListItemId = string.Empty;
             BindingContext = VM;
             Clear();
@@ -32,7 +34,7 @@ namespace ToDoPCL
         {
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel();
+            vm = new CreatePageViewModel(new ToDoItem());
             mTodoListItemId = toDoListItemId;
             BindingContext = VM;
             Clear();

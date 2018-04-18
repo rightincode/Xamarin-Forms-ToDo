@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToDoPCL.Interfaces;
 using ToDoPCL.Models;
 
 namespace ToDoPCL.ViewModels
 {
     public class CreatePageViewModel : INotifyPropertyChanged//, IValidatableObject
     {
-        private ToDoItem mCurrentToDoItem;
+        private IToDoItem mCurrentToDoItem;
         private string mTaskId;
         private string mTaskName;
         private string mPriority;
@@ -119,9 +119,9 @@ namespace ToDoPCL.ViewModels
             }
         }
 
-        public CreatePageViewModel()
+        public CreatePageViewModel(IToDoItem currentToDoItem)
         {
-            mCurrentToDoItem = new ToDoItem();
+            mCurrentToDoItem = currentToDoItem;
         }
                 
         public async Task<bool> AddToDoItem()
@@ -130,7 +130,7 @@ namespace ToDoPCL.ViewModels
             mCurrentToDoItem.DueDate = this.SetDueDate(DueDate, DueTime.Hours, DueTime.Minutes,
                 DueTime.Seconds);
 
-            return await ToDoPCL.Database.SaveItemAsync(mCurrentToDoItem);
+            return await ToDoPCL.Database.SaveItemAsync((ToDoItem)mCurrentToDoItem);
         }
         
         private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
@@ -163,7 +163,7 @@ namespace ToDoPCL.ViewModels
 
         public async Task<bool> DeleteToDoItem()
         {
-            return await ToDoPCL.Database.DeleteItemAsync(mCurrentToDoItem);
+            return await ToDoPCL.Database.DeleteItemAsync((ToDoItem)mCurrentToDoItem);
         }
 
         //not used at the moment
