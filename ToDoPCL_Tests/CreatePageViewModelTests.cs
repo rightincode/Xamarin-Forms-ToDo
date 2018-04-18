@@ -10,9 +10,10 @@ namespace ToDoPCL_Tests
     public class CreatePageViewModelTests
     {
         [TestMethod]
-        public async Task CreatePageViewModelAddAndLoadToDoItem()
+        public async Task AddToDoItemToDBAndRetrieveToDoItemFromDB_NewToDoItem_NewToDoItemAndVMToDoItemHaveSameProperties()
         {
-            var testToDoItem = new ToDoItem {
+            var testToDoItem = new ToDoItem
+            { 
                 TaskName = "Testing_AddToDoItem",
                 DueDate = new DateTime(1970, 04, 27, 4, 30, 0),
                 Priority = "Low"
@@ -20,8 +21,8 @@ namespace ToDoPCL_Tests
             testToDoItem.SetToDoItemId();
 
             var testDataStore = new MockToDoItemDatabase();
-
             var vm = new CreatePageViewModel(testToDoItem, testDataStore);
+
             await vm.AddToDoItem();
             await vm.LoadToDoListItem(testToDoItem.Id);
 
@@ -31,7 +32,7 @@ namespace ToDoPCL_Tests
         }
 
         [TestMethod]
-        public async Task CreatePageViewModelDeleteToDoItem()
+        public async Task AddToDoItemToDBAndDeleteToDoItemFromDB_NewToDoItem_DeletedToDoItem()
         {
             var testToDoItem = new ToDoItem
             {
@@ -42,12 +43,13 @@ namespace ToDoPCL_Tests
             testToDoItem.SetToDoItemId();
 
             var testDataStore = new MockToDoItemDatabase();
-
             var vm = new CreatePageViewModel(testToDoItem, testDataStore);
+
             await vm.AddToDoItem();
             var result = await vm.DeleteToDoItem();
 
             Assert.AreEqual(result, true);
         }
+        
     }
 }

@@ -7,7 +7,7 @@ namespace ToDoPCL_Tests
     public class ToDoItemTests
     {
         [TestMethod]
-        public void TestSetToDoItemId()
+        public void SetToDoItemId_NewToDoItem_IDIsAString()
         {
             var toDoItem = new ToDoItem();
 
@@ -15,8 +15,11 @@ namespace ToDoPCL_Tests
 
             Assert.IsInstanceOfType(toDoItem.Id, typeof(System.String));
 
+            #region better test
+            //This is a better test
             //Assert.IsNotNull(toDoItem.Id);
-            //Assert.IsTrue(toDoItem.Id.Length > 0);            
+            //Assert.IsTrue(toDoItem.Id.Length > 0);
+            #endregion
         }
     }
 }
