@@ -27,10 +27,11 @@ namespace ToDo.Core.Models
         public string AzureVersion { get; set; }
         
         public ToDoItem()
-        {            
+        {
+            SetToDoItemId();
         }
         
-        public void SetToDoItemId()
+        private void SetToDoItemId()
         {
             Id = Guid.NewGuid().ToString();
         }

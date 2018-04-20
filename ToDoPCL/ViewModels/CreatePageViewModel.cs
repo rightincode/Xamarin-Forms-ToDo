@@ -153,9 +153,6 @@ namespace ToDoPCL.ViewModels
                 Priority = mCurrentToDoItem.Priority;
                 DueDate = mCurrentToDoItem.DueDate;
 
-            } else
-            {
-                mCurrentToDoItem.SetToDoItemId();
             }
 
             DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute,

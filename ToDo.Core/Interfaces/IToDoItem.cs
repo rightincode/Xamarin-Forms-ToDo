@@ -18,7 +18,5 @@ namespace ToDo.Core.Interfaces
 
         string AzureVersion { get; set; }
 
-        void SetToDoItemId();
-
     }
 }

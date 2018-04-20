@@ -73,7 +73,6 @@ namespace ToDoPCL_Tests
                 DueDate = new DateTime(2018, 04, 27, 4, 30, 0),
                 Priority = "Low"
             };
-            testToDoItem.SetToDoItemId();
             localDataStore.Add(testToDoItem);
         }
     }

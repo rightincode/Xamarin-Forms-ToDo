@@ -18,7 +18,6 @@ namespace ToDoPCL_Tests
                 DueDate = new DateTime(1970, 04, 27, 4, 30, 0),
                 Priority = "Low"
             };
-            testToDoItem.SetToDoItemId();
 
             var testDataStore = new MockToDoItemDatabase();
             var vm = new CreatePageViewModel(testToDoItem, testDataStore);
@@ -40,7 +39,6 @@ namespace ToDoPCL_Tests
                 DueDate = new DateTime(1970, 04, 27, 4, 30, 0),
                 Priority = "Low"
             };
-            testToDoItem.SetToDoItemId();
 
             var testDataStore = new MockToDoItemDatabase();
             var vm = new CreatePageViewModel(testToDoItem, testDataStore);

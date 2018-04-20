@@ -10,9 +10,6 @@ namespace ToDoPCL_Tests
         public void SetToDoItemId_NewToDoItem_IDIsAString()
         {
             var toDoItem = new ToDoItem();
-
-            toDoItem.SetToDoItemId();
-
             Assert.IsInstanceOfType(toDoItem.Id, typeof(System.String));
 
             #region better test
