@@ -42,7 +42,7 @@ namespace ToDoPCL.ViewModels
         public async Task<int> LoadItemsAsync(bool forceRefresh = false)
         {
             ToDoItems = await mDataStore.GetItemsAsync(forceRefresh);
-            return 0;
+            return ToDoItems.Count;
         }
 
         public void SaveSelectedItem(ItemTappedEventArgs e)

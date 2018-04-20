@@ -45,6 +45,7 @@
     <Compile Include="ToDoItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CreatePageViewModelTests.cs" />
+    <Compile Include="ListTasksPageViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToDo.Core\ToDo.Core.csproj">

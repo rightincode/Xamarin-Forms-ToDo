@@ -36,7 +36,10 @@ namespace ToDoPCL_Tests
 
         public Task<List<ToDoItem>> GetItemsAsync(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return localDataStore;
+            });
         }
 
         public Task InitializeAsync()
