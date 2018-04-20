@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using ToDoPCL.Data;
+using ToDoPCL.Interfaces;
 using ToDo.Core.Models;
 
 namespace ToDoPCL_Tests
 {
-    public class MockToDoItemDatabase : IDataStore<ToDoItem>
+    public class MockToDoItemDatabase : IToDoItemDatabase<ToDoItem>
     {
         private List<ToDoItem> localDataStore;
 

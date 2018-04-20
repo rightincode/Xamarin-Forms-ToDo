@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ToDo.Core.Interfaces;
 using ToDo.Core.Models;
-using ToDoPCL.Data;
+using ToDoPCL.Interfaces;
 
 namespace ToDoPCL.ViewModels
 {
@@ -17,7 +17,7 @@ namespace ToDoPCL.ViewModels
         private DateTime mDueDate;
         private TimeSpan mDueTime;
 
-        private IDataStore<ToDoItem> mDataStore;
+        private IToDoItemDatabase<ToDoItem> mDataStore;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -122,7 +122,7 @@ namespace ToDoPCL.ViewModels
             }
         }
 
-        public CreatePageViewModel(IToDoItem currentToDoItem, IDataStore<ToDoItem> dataStore)
+        public CreatePageViewModel(IToDoItem currentToDoItem, IToDoItemDatabase<ToDoItem> dataStore)
         {
             mCurrentToDoItem = currentToDoItem;
             mDataStore = dataStore;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 
 using ToDo.Core.Models;
+using ToDoPCL.Interfaces;
 
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -12,7 +13,7 @@ using Plugin.Connectivity;
 
 namespace ToDoPCL.Data
 {
-    public class ToDoItemDatabase : IDataStore<ToDoItem>
+    public class ToDoItemDatabase : IToDoItemDatabase<ToDoItem>
     {
         private string _dbPath;
         private readonly string azureMobileAppUrl = "https://xformstodo.azurewebsites.net";

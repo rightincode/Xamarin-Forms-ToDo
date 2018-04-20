@@ -29,7 +29,7 @@ namespace ToDoPCL
 		{
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new ListTasksPageViewModel();
+            vm = new ListTasksPageViewModel(ToDoPCL.Database);
             BindingContext = this;
 		}
 

@@ -3,11 +3,16 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using ToDo.Core.Models;
+using ToDoPCL.Interfaces;
 
 namespace ToDoPCL.ViewModels
 {
     public class ListTasksPageViewModel
     {
+        private List<ToDoItem> toDoItems;
+        private ToDoItem selectedItem;
+        private IToDoItemDatabase<ToDoItem> mDataStore;
+
         public List<ToDoItem> ToDoItems
         {
             get
@@ -28,17 +33,15 @@ namespace ToDoPCL.ViewModels
                 return selectedItem;
             }
         }
-
-        private List<ToDoItem> toDoItems;
-        private ToDoItem selectedItem;
-
-        public ListTasksPageViewModel()
+        
+        public ListTasksPageViewModel(IToDoItemDatabase<ToDoItem> dataStore)
         {
+            mDataStore = dataStore;
         }
 
         public async Task<int> LoadItemsAsync(bool forceRefresh = false)
         {
-            ToDoItems = await ToDoPCL.Database.GetItemsAsync(forceRefresh);
+            ToDoItems = await mDataStore.GetItemsAsync(forceRefresh);
             return 0;
         }
 

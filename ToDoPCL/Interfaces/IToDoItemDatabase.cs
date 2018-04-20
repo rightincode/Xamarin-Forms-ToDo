@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ToDoPCL.Data
+namespace ToDoPCL.Interfaces
 {
-    public interface IDataStore<T>
+    public interface IToDoItemDatabase<T>
     {
         Task<List<T>> GetItemsAsync(bool forceRefresh = false);
         Task<T> GetItemAsync(string id);
