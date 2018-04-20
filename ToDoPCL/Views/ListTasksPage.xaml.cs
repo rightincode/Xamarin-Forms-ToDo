@@ -76,16 +76,7 @@ namespace ToDoPCL
                 }
 
                 authenticated = await ToDoPCL.Authenticator.Authenticate();
-
-                if (authenticated)
-                {
-                    SetAuthenticatedUi();
-                    await RefreshTaskList();
-                }
-                else
-                {
-                    SetNotAuthenticatedUi();
-                }
+                SetUiPerAuthenticated();
             }
         }
 
@@ -93,16 +84,7 @@ namespace ToDoPCL
         {
             await ToDoPCL.Database.InitializeAsync();
             authenticated = await ToDoPCL.Authenticator.Logout();
-
-            if (authenticated)
-            {
-                SetAuthenticatedUi();
-                await RefreshTaskList();
-            }
-            else
-            {
-                SetNotAuthenticatedUi();
-            }
+            SetUiPerAuthenticated();            
         }
 
         private void WireUpEventHandlers()
@@ -122,6 +104,19 @@ namespace ToDoPCL
             ToDoList.ItemsSource = null;
             ToDoList.ItemsSource = VM.ToDoItems;
             ToDoList.IsRefreshing = false;
+        }
+
+        private async void SetUiPerAuthenticated()
+        {
+            if (authenticated)
+            {
+                SetAuthenticatedUi();
+                await RefreshTaskList();
+            }
+            else
+            {
+                SetNotAuthenticatedUi();
+            }
         }
 
         private void SetAuthenticatedUi()
