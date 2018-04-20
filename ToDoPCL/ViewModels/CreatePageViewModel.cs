@@ -135,14 +135,7 @@ namespace ToDoPCL.ViewModels
 
             return await mDataStore.SaveItemAsync((ToDoItem)mCurrentToDoItem);
         }
-        
-        private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
-        {
-            DateTime retVal = new DateTime(date.Year, date.Month, date.Day, hour, minute, second);
-
-            return retVal;
-        }
-
+                
         public async Task<int> LoadToDoListItem(string toDoListItemId)
         {
             if (!string.IsNullOrEmpty(toDoListItemId))
@@ -192,6 +185,13 @@ namespace ToDoPCL.ViewModels
             {
                 //AddToDoItem();
             }
+        }
+
+        private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
+        {
+            DateTime retVal = new DateTime(date.Year, date.Month, date.Day, hour, minute, second);
+
+            return retVal;
         }
     }
 }
