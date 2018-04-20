@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Data\IDataStore.cs" />
-    <Compile Include="Data\IFileHelper.cs" />
+    <Compile Include="Interfaces\IDataStore.cs" />
+    <Compile Include="Interfaces\IFileHelper.cs" />
     <Compile Include="Data\ToDoItemDatabase.cs" />
     <Compile Include="Interfaces\IAuthenticate.cs" />
     <Compile Include="ToDoPCL.cs" />
