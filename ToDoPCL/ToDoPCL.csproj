@@ -41,6 +41,7 @@
     <Compile Include="Interfaces\IAuthenticator.cs" />
     <Compile Include="ToDoPCL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreatePageViewModel.cs" />
     <Compile Include="ViewModels\ListTasksPageViewModel.cs" />
     <Compile Include="Views\CreatePage.xaml.cs">

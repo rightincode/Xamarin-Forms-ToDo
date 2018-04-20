@@ -8,7 +8,7 @@ using ToDoPCL.Interfaces;
 
 namespace ToDoPCL.ViewModels
 {
-    public class CreatePageViewModel : INotifyPropertyChanged//, IValidatableObject
+    public class CreatePageViewModel : BaseViewModel
     {
         private IToDoItem mCurrentToDoItem;
         private string mTaskId;
@@ -19,27 +19,6 @@ namespace ToDoPCL.ViewModels
 
         private IToDoItemDatabase<ToDoItem> mDataStore;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        //public ToDoItem CurrentToDoItem
-        //{
-        //    get
-        //    {
-        //        return mCurrentToDoItem;
-        //    }
-        //    set
-        //    {
-        //        mCurrentToDoItem = value;
-        //        if (PropertyChanged != null)
-        //        {
-        //            PropertyChanged(this, new PropertyChangedEventArgs("CurrentToDoItem.TaskName"));
-        //            PropertyChanged(this, new PropertyChangedEventArgs("CurrentToDoItem.Priority"));
-        //            PropertyChanged(this, new PropertyChangedEventArgs("CurrentToDoItem.DueDate"));
-        //        }
-
-        //    }
-        //}
-
         public string Id
         {
             get
@@ -49,11 +28,7 @@ namespace ToDoPCL.ViewModels
             set
             {
                 mTaskId = mCurrentToDoItem.Id = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Id"));
-                }
+                OnPropertyChanged("Id");                
             }
         }
 
@@ -66,10 +41,7 @@ namespace ToDoPCL.ViewModels
             set
             {
                 mTaskName = mCurrentToDoItem.TaskName = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("TaskName"));
-                }
+                OnPropertyChanged("TaskName");
             }
         }
 
@@ -83,10 +55,7 @@ namespace ToDoPCL.ViewModels
             set
             {
                 mPriority = mCurrentToDoItem.Priority = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Priority"));
-                }
+                OnPropertyChanged("Priority");
             }
         }
 
@@ -99,10 +68,7 @@ namespace ToDoPCL.ViewModels
             set
             {
                 mDueDate = mCurrentToDoItem.DueDate = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("DueDate"));
-                }
+                OnPropertyChanged("DueDate");
             }
         }
 
@@ -115,15 +81,13 @@ namespace ToDoPCL.ViewModels
             set
             {
                 mDueTime = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("DueTime"));
-                }
+                OnPropertyChanged("DueTime");
             }
         }
 
         public CreatePageViewModel(IToDoItem currentToDoItem, IToDoItemDatabase<ToDoItem> dataStore)
-        {
+            : base()
+        {            
             mCurrentToDoItem = currentToDoItem;
             mDataStore = dataStore;
         }
