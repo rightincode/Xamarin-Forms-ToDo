@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Microsoft.WindowsAzure.MobileServices;
+
 using ToDoPCL.Interfaces;
 using ToDo.Core.Models;
 
@@ -10,6 +12,8 @@ namespace ToDoPCL_Tests
     public class MockToDoItemDatabase : IToDoItemDatabase<ToDoItem>
     {
         private List<ToDoItem> localDataStore;
+
+        public MobileServiceClient MobileService { get; set; }
 
         public MockToDoItemDatabase()
         {

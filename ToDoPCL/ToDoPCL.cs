@@ -23,14 +23,14 @@ namespace ToDoPCL
         }
 
         static object currentAppContext;
-        static IAuthenticate authenticator;
+        static IAuthenticator authenticator;
 
-        public static IAuthenticate Authenticator {
+        public static IAuthenticator Authenticator {
             get {
 
                 if (authenticator == null)
                 {
-                    authenticator = DependencyService.Get<IAuthenticate>();
+                    authenticator = DependencyService.Get<IAuthenticator>();
 
                     if (Device.RuntimePlatform != Device.UWP)
                     {
@@ -52,7 +52,7 @@ namespace ToDoPCL
 
         public ToDoPCL()
         {
-            MainPage = new NavigationPage(new ListTasksPage());
+            MainPage = new NavigationPage(new ListTasksPage(Authenticator, Database));
         }
 
         protected override void OnStart()

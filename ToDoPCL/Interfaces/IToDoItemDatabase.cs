@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ToDoPCL.Interfaces
 {
     public interface IToDoItemDatabase<T>
     {
+        MobileServiceClient MobileService { set; get; }
+
         Task<List<T>> GetItemsAsync(bool forceRefresh = false);
         Task<T> GetItemAsync(string id);
         Task<bool> SaveItemAsync(T item);

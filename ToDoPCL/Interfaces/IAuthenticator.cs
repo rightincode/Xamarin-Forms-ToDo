@@ -2,8 +2,10 @@
 
 namespace ToDoPCL.Interfaces
 {
-    public interface IAuthenticate
+    public interface IAuthenticator
     {
+        bool Authenticated { get; set; }
+
         object GetClient();
 
         void SetClient(object currentClient);

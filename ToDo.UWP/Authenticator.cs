@@ -6,13 +6,14 @@ using Xamarin.Forms;
 using ToDo.UWP;
 using ToDoPCL.Interfaces;
 
-
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.UWP
 {
-    public class Authenticator : IAuthenticate
+    public class Authenticator : IAuthenticator
     {
         private MobileServiceClient _currentMobileClient;
+
+        public bool Authenticated { get; set; } = false;
 
         public object GetClient()
         {
@@ -27,7 +28,7 @@ namespace ToDo.UWP
         public async Task<bool> Authenticate()
         {
             string message = string.Empty;
-            var success = false;
+            Authenticated = false;
 
             try
             {
@@ -38,7 +39,7 @@ namespace ToDo.UWP
                 if (user != null)
                 {
                     message = string.Format("You are signed-in as {0}.", user.UserId);
-                    success = true;
+                    Authenticated = true;
                 }
 
             }
@@ -50,15 +51,15 @@ namespace ToDo.UWP
             // Display the success or failure message.
             await new MessageDialog(message, "Sign-in result").ShowAsync();
 
-            return success;
+            return Authenticated;
         }
 
         public async Task<bool> Logout()
         {
-            bool authenticated = false;
+            Authenticated = false;
 
             await ToDoPCL.ToDoPCL.Database.MobileService.LogoutAsync();
-            return authenticated;
+            return Authenticated;
         }
     }    
 }

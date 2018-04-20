@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using ToDoPCL.ViewModels;
+using ToDoPCL.Interfaces;
+using ToDo.Core.Models;
 
 namespace ToDoPCL
 {
@@ -17,7 +19,8 @@ namespace ToDoPCL
         }
 
         private ListTasksPageViewModel vm;
-        private bool authenticated = false;
+        private IAuthenticator mAuthenticator;
+        private IToDoItemDatabase<ToDoItem> mDatabase;
 
         //standard values
         public const string TaskNameFontSize = "16";
@@ -25,19 +28,21 @@ namespace ToDoPCL
         public const string TaskNameFontAttributes = "Bold,Italic";
         public const string TaskLabelFontAttributes = "Bold";
 
-        public ListTasksPage()
+        public ListTasksPage(IAuthenticator authenticator, IToDoItemDatabase<ToDoItem> database)
 		{
             InitializeComponent();
             WireUpEventHandlers();
             vm = new ListTasksPageViewModel(ToDoPCL.Database);
             BindingContext = this;
-		}
+            mAuthenticator = authenticator;
+            mDatabase = database;
+        }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            if (authenticated)
+            if (mAuthenticator.Authenticated)
             {
                 SetAuthenticatedUi();
                 await RefreshTaskList();
@@ -66,24 +71,24 @@ namespace ToDoPCL
         
         public async void OnLogin(object sender, EventArgs e)
         {
-            if (ToDoPCL.Authenticator != null)
+            if (mAuthenticator != null)
             {
-                await ToDoPCL.Database.InitializeAsync();
+                await mDatabase.InitializeAsync();
                 
                 if (Device.RuntimePlatform == Device.UWP)
                 {
-                    ToDoPCL.Authenticator.SetClient(ToDoPCL.Database.MobileService);
+                    mAuthenticator.SetClient(mDatabase.MobileService);
                 }
 
-                authenticated = await ToDoPCL.Authenticator.Authenticate();
+                await mAuthenticator.Authenticate();
                 SetUiPerAuthenticated();
             }
         }
 
         public async void OnLogout(object sender, EventArgs e)
         {
-            await ToDoPCL.Database.InitializeAsync();
-            authenticated = await ToDoPCL.Authenticator.Logout();
+            await mDatabase.InitializeAsync();
+            await mAuthenticator.Logout();
             SetUiPerAuthenticated();            
         }
 
@@ -108,7 +113,7 @@ namespace ToDoPCL
 
         private async void SetUiPerAuthenticated()
         {
-            if (authenticated)
+            if (mAuthenticator.Authenticated)
             {
                 SetAuthenticatedUi();
                 await RefreshTaskList();

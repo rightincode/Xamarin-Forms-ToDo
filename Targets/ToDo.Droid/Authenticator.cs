@@ -19,9 +19,11 @@ using ToDoPCL.Interfaces;
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.Droid
 {
-    public class Authenticator : IAuthenticate
+    public class Authenticator : IAuthenticator
     {
         private Context currentClient;
+
+        public bool Authenticated { get; set; } = false;
 
         public object GetClient()
         {
@@ -35,7 +37,7 @@ namespace ToDo.Droid
 
         public async Task<bool> Authenticate()
         {
-            var success = false;
+            Authenticated = false;
             var message = string.Empty;
 
             try
@@ -48,7 +50,7 @@ namespace ToDo.Droid
                 {
                     message = string.Format("You are signed-in as {0}.",
                         user.UserId);
-                    success = true;
+                    Authenticated = true;
                 }
             }
             catch (Exception ex)
@@ -62,16 +64,16 @@ namespace ToDo.Droid
             builder.SetTitle("Sign-in result");
             builder.Create().Show();
 
-            return success;
+            return Authenticated;
         }
 
         public async Task<bool> Logout()
         {
-            bool authenticated = false;
+            Authenticated = false;
             CookieManager.Instance.RemoveAllCookie();
 
             await ToDoPCL.ToDoPCL.Database.MobileService.LogoutAsync();
-            return authenticated;
+            return Authenticated;
         }
     }
 }
