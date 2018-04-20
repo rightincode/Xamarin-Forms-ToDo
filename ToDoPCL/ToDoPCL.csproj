@@ -39,8 +39,6 @@
     <Compile Include="Data\IFileHelper.cs" />
     <Compile Include="Data\ToDoItemDatabase.cs" />
     <Compile Include="Interfaces\IAuthenticate.cs" />
-    <Compile Include="Interfaces\IToDoItem.cs" />
-    <Compile Include="Models\ToDoItem.cs" />
     <Compile Include="ToDoPCL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreatePageViewModel.cs" />
@@ -71,6 +69,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToDo.Core\ToDo.Core.csproj">
+      <Project>{677f9f5b-ebfb-490d-ad31-1a44ed0a5be4}</Project>
+      <Name>ToDo.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

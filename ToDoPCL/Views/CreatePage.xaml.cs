@@ -2,8 +2,7 @@
 using Xamarin.Forms;
 
 using ToDoPCL.ViewModels;
-using ToDoPCL.Interfaces;
-using ToDoPCL.Models;
+using ToDo.Core.Models;
 
 namespace ToDoPCL
 {

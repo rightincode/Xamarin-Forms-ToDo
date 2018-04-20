@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ToDoPCL.Models;
+using ToDo.Core.Models;
 
 namespace ToDoPCL_Tests
 {

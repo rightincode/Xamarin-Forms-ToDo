@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MigrationBackup/623546ea/ToDo.Core/ToDo.Core.csproj
+/MigrationBackup/623546ea/ToDo.Core/packages.config
+/MigrationBackup/623546ea/ToDo.Core/NuGetUpgradeLog.html
+/MigrationBackup/951e297b/ToDoPCL_Tests/ToDoPCL_Tests.csproj
+/MigrationBackup/951e297b/ToDoPCL_Tests/packages.config
+/MigrationBackup/951e297b/ToDoPCL_Tests/NuGetUpgradeLog.html

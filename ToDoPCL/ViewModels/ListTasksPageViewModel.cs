@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using ToDoPCL.Models;
+using ToDo.Core.Models;
 
 namespace ToDoPCL.ViewModels
 {

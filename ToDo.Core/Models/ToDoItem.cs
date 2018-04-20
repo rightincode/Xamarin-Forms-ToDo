@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
-using ToDoPCL.Interfaces;
+using ToDo.Core.Interfaces;
 
-namespace ToDoPCL.Models
+namespace ToDo.Core.Models
 {
     public class ToDoItem : IToDoItem
     {

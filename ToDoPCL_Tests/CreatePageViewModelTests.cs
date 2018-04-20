@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading.Tasks;
-using ToDoPCL.Models;
+using ToDo.Core.Models;
 using ToDoPCL.ViewModels;
 
 namespace ToDoPCL_Tests

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ToDoPCL.Interfaces
+namespace ToDo.Core.Interfaces
 {
     public interface IToDoItem
     {

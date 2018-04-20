@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ToDoPCL.Interfaces;
-using ToDoPCL.Models;
+using ToDo.Core.Interfaces;
+using ToDo.Core.Models;
 using ToDoPCL.Data;
 
 namespace ToDoPCL.ViewModels
