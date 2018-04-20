@@ -7,7 +7,7 @@ namespace ToDoPCL_Tests
     public class ToDoItemTests
     {
         [TestMethod]
-        public void SetToDoItemId_NewToDoItem_IDIsAString()
+        public void CreateNewToDoItem_NewToDoItem_IDIsAString()
         {
             var toDoItem = new ToDoItem();
             Assert.IsInstanceOfType(toDoItem.Id, typeof(System.String));
