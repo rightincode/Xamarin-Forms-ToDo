@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ToDo.Core\ToDo.Core.csproj">
-      <Project>{677f9f5b-ebfb-490d-ad31-1a44ed0a5be4}</Project>
-      <Name>ToDo.Core</Name>
+    <ProjectReference Include="..\ToDo.CoreNS\ToDo.CoreNS.csproj">
+      <Project>{3de93323-283e-4e7e-ba11-bcdf21ba268d}</Project>
+      <Name>ToDo.CoreNS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
