@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="15" />
+	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="27" />
 	<application android:label="ToDo.Droid">
-    <activity android:name="com.microsoft.windowsazure.mobileservices.authentication.RedirectUrlActivity" android:launchMode="singleTop" android:noHistory="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="xformstodo" android:host="easyauth.callback" />
-      </intent-filter>
-    </activity>
-  </application>
-  
+		<activity android:name="com.microsoft.windowsazure.mobileservices.authentication.RedirectUrlActivity" android:launchMode="singleTop" android:noHistory="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="xformstodo" android:host="easyauth.callback" />
+			</intent-filter>
+		</activity>
+	</application>
 </manifest>

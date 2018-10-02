@@ -14,8 +14,8 @@ namespace ToDoPCL_Tests
 
             #region better test
             //This is a better test
-            //Assert.IsNotNull(toDoItem.Id);
-            //Assert.IsTrue(toDoItem.Id.Length > 0);
+            Assert.IsNotNull(toDoItem.Id);
+            Assert.IsTrue(toDoItem.Id.Length > 0);
             #endregion
         }
     }
