@@ -59,7 +59,6 @@ namespace ToDo.Data
             //}
 
 #endregion
-
             var store = new MobileServiceSQLiteStore(_dbPath);
             store.DefineTable<ToDoItem>();
             await MobileService.SyncContext.InitializeAsync(store, new MobileServiceSyncHandler());

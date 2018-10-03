@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Microsoft.WindowsAzure.MobileServices;
 
 using Android.App;
 using Android.Content;
@@ -14,7 +13,8 @@ using Android.Webkit;
 using Xamarin.Forms;
 
 using ToDo.Droid;
-using ToDoPCL.Interfaces;
+using ToDo.Interfaces;
+using Microsoft.WindowsAzure.MobileServices;
 
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.Droid
@@ -22,6 +22,7 @@ namespace ToDo.Droid
     public class Authenticator : IAuthenticator
     {
         private Context currentClient;
+        private MobileServiceClient mobileClient;
 
         public bool Authenticated { get; set; } = false;
 
@@ -43,7 +44,7 @@ namespace ToDo.Droid
             try
             {
                 // Sign in with Azure Active Directory, login using a server-managed flow.
-                var user = await ToDoPCL.ToDoPCL.Database.MobileService.LoginAsync(currentClient, 
+                var user = await ToDo.Database.MobileService.LoginAsync(currentClient,
                     MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, "xformstodo");
 
                 if (user != null)
@@ -72,7 +73,7 @@ namespace ToDo.Droid
             Authenticated = false;
             CookieManager.Instance.RemoveAllCookie();
 
-            await ToDoPCL.ToDoPCL.Database.MobileService.LogoutAsync();
+            await ToDo.Database.MobileService.LogoutAsync();
             return Authenticated;
         }
     }

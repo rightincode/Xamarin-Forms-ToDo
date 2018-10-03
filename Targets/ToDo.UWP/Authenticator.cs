@@ -4,7 +4,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using Windows.UI.Popups;
 using Xamarin.Forms;
 using ToDo.UWP;
-using ToDoPCL.Interfaces;
+using ToDo.Interfaces;
 
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.UWP
@@ -33,7 +33,7 @@ namespace ToDo.UWP
             try
             {
                 // Sign in with Azure Active Directory, login using a server-managed flow.
-                var user = await ToDoPCL.ToDoPCL.Database.MobileService.LoginAsync(
+                var user = await ToDo.Database.MobileService.LoginAsync(
                     MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, "xformstodo");
 
                 if (user != null)
@@ -58,7 +58,7 @@ namespace ToDo.UWP
         {
             Authenticated = false;
 
-            await ToDoPCL.ToDoPCL.Database.MobileService.LogoutAsync();
+            await ToDo.Database.MobileService.LogoutAsync();
             return Authenticated;
         }
     }    
