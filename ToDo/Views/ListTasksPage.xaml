@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDo.ListTasksPage"
+             xmlns:me="clr-namespace:ToDo">
+    <ContentPage.Content>        
+        <StackLayout Padding="30">
+            <Button x:Name="loginBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Please Login" />
+            <Button x:Name="logoutBtn" BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Logout" />
+            <Button x:Name="addNewItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" />            
+            <ListView x:Name="ToDoList" ItemsSource="{Binding VM.ToDoItems}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Padding="5">
+                                    <!--<Label x:Name="TaskIdDisplay" Text="{Binding Id}" />-->
+                                    <Label x:Name="TaskNameDisplay" Text="{Binding TaskName}" 
+                                           FontSize="{ x:Static me:ListTasksPage.TaskNameFontSize }" 
+                                           FontAttributes="{ x:Static me:ListTasksPage.TaskNameFontAttributes }"
+                                           TextColor="Red" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Due Date: " FontSize="{ x:Static me:ListTasksPage.TaskDetailFontSize }" 
+                                               FontAttributes="{ x:Static me:ListTasksPage.TaskLabelFontAttributes }" />
+                                        <Label Text="{Binding DueDate, StringFormat='{0:f}'}" FontSize="{ x:Static me:ListTasksPage.TaskDetailFontSize }" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Priority: " FontSize="{ x:Static me:ListTasksPage.TaskDetailFontSize }" 
+                                               FontAttributes="{ x:Static me:ListTasksPage.TaskLabelFontAttributes }" />
+                                        <Label Text="{Binding Priority}" FontSize="{ x:Static me:ListTasksPage.TaskDetailFontSize }" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
