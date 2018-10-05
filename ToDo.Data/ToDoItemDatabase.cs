@@ -15,7 +15,7 @@ namespace ToDo.Data
 {
     public class ToDoItemDatabase : IToDoItemDatabase<ToDoItem>
     {
-        private string _dbPath;
+        private readonly string _dbPath;
         private readonly string azureMobileAppUrl = "https://xformstodo.azurewebsites.net";
 
         public bool isInitialized;
@@ -45,6 +45,7 @@ namespace ToDo.Data
 
             var store = new MobileServiceSQLiteStore(_dbPath);
             store.DefineTable<ToDoItem>();
+
             await MobileService.SyncContext.InitializeAsync(store, new MobileServiceSyncHandler());
             itemsTable = MobileService.GetSyncTable<ToDoItem>();
 
@@ -77,13 +78,13 @@ namespace ToDo.Data
             await InitializeAsync();
             await PullLatestAsync();
 
-            if (item.AzureVersion != null)
+            if (item.AzureVersion == null)
             {
-                await itemsTable.UpdateAsync(item);
+                await itemsTable.InsertAsync(item);                
             }
             else
             {
-                await itemsTable.InsertAsync(item);
+                await itemsTable.UpdateAsync(item);
             }
 
             await SyncAsync();
