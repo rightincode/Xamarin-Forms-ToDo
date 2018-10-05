@@ -33,7 +33,7 @@ namespace ToDo
 		{
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new ListTasksPageViewModel(ToDo.Database);
+            vm = new ListTasksPageViewModel(database);
             BindingContext = this;
             mAuthenticator = authenticator;
             mDatabase = database;
