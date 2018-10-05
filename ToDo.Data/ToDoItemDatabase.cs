@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 
 using ToDo.Core.Models;
-using ToDo.Interfaces;
+using ToDo.Data.Interfaces;
 
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -35,14 +35,6 @@ namespace ToDo.Data
                 return;
             }
 
-            #region commented_code
-            //AuthenticationHandler handler = null;
-
-            //if (UseAuthentication)
-            //    handler = new AuthenticationHandler();
-
-            #endregion
-
             MobileService = new MobileServiceClient(azureMobileAppUrl)
             {
                 SerializerSettings = new MobileServiceJsonSerializerSettings
@@ -51,14 +43,6 @@ namespace ToDo.Data
                 }
             };
 
-            #region commented_code
-            //if (UseAuthentication && !string.IsNullOrWhiteSpace(Settings.AuthToken) && !string.IsNullOrWhiteSpace(Settings.UserId))
-            //{
-            //    MobileService.CurrentUser = new MobileServiceUser(Settings.UserId);
-            //    MobileService.CurrentUser.MobileServiceAuthenticationToken = Settings.AuthToken;
-            //}
-
-#endregion
             var store = new MobileServiceSQLiteStore(_dbPath);
             store.DefineTable<ToDoItem>();
             await MobileService.SyncContext.InitializeAsync(store, new MobileServiceSyncHandler());

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ToDo.Interfaces
+namespace ToDo.Data.Interfaces
 {
     public interface IToDoItemDatabase<T>
     {

@@ -158,6 +158,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ToDo.Data\ToDo.Data.csproj">
+      <Project>{95cffea5-95cb-4b11-8ed0-28de02fcfdcf}</Project>
+      <Name>ToDo.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ToDo\ToDo.csproj">
       <Project>{ab543d06-f4f0-44d3-a559-8574e3043099}</Project>
       <Name>ToDo</Name>

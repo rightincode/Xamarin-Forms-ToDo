@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ToDo.Core.Interfaces;
 using ToDo.Core.Models;
-using ToDo.Interfaces;
+using ToDo.Data.Interfaces;
 
 namespace ToDo.ViewModels
 {

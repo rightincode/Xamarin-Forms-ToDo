@@ -15,7 +15,9 @@ namespace ToDo
             {
                 if (database == null)
                 {
-                    database = new ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLiteSync2.db3"));
+                    database = new 
+                        
+                        ToDoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLiteSync2.db3"));
                 }
 
                 return database;

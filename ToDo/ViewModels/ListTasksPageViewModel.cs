@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using ToDo.Core.Models;
-using ToDo.Interfaces;
+using ToDo.Data.Interfaces;
 
 namespace ToDo.ViewModels
 {
