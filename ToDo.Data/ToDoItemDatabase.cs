@@ -26,14 +26,6 @@ namespace ToDo.Data
         public ToDoItemDatabase(string dbPath)
         {
             _dbPath = dbPath;
-        }
-
-        public async Task InitializeAsync()
-        {
-            if (isInitialized)
-            {
-                return;
-            }
 
             MobileService = new MobileServiceClient(azureMobileAppUrl)
             {
@@ -42,7 +34,15 @@ namespace ToDo.Data
                     CamelCasePropertyNames = true
                 }
             };
+        }
 
+        public async Task InitializeAsync()
+        {
+            if (isInitialized)
+            {
+                return;
+            }
+            
             var store = new MobileServiceSQLiteStore(_dbPath);
             store.DefineTable<ToDoItem>();
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="27" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.netwoaksoftware.xformstodo">
+	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<application android:label="ToDo.Droid">
@@ -12,5 +12,13 @@
 				<data android:scheme="xformstodo" android:host="easyauth.callback" />
 			</intent-filter>
 		</activity>
+		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
+		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+				<category android:name="${applicationId}" />
+			</intent-filter>
+		</receiver>
 	</application>
 </manifest>
