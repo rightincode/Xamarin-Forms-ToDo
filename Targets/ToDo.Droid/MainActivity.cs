@@ -9,7 +9,12 @@ using Android.Widget;
 using Android.OS;
 using Android.Webkit;
 
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json.Linq;
+
 using ToDo.Interfaces;
+using Microsoft.WindowsAzure.MobileServices;
+using Android.Content;
 
 namespace ToDo.Droid
 {    
@@ -26,6 +31,12 @@ namespace ToDo.Droid
 
 			LoadApplication (new ToDo());
 		}
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
+        }
     }    
 }
 

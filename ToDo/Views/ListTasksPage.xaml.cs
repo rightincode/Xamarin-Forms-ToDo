@@ -81,7 +81,7 @@ namespace ToDo
                     mAuthenticator.SetClient(mDatabase.MobileService);
                 }
 
-                await mAuthenticator.Authenticate();
+                await mAuthenticator.AuthenticateAsync();
                 SetUiPerAuthenticated();
             }
         }
@@ -89,7 +89,7 @@ namespace ToDo
         public async void OnLogout(object sender, EventArgs e)
         {
             await mDatabase.InitializeAsync();
-            await mAuthenticator.Logout();
+            await mAuthenticator.LogoutAsync();
             SetUiPerAuthenticated();            
         }
 

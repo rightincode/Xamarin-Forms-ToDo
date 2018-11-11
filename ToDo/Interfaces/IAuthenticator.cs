@@ -10,8 +10,8 @@ namespace ToDo.Interfaces
 
         void SetClient(object currentClient);
 
-        Task<bool> Authenticate();
+        Task<bool> AuthenticateAsync();
 
-        Task<bool> Logout();
+        Task<bool> LogoutAsync();
     }
 }

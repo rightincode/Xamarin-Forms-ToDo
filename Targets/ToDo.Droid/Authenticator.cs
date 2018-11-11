@@ -15,6 +15,8 @@ using Xamarin.Forms;
 using ToDo.Droid;
 using ToDo.Interfaces;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json.Linq;
 
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.Droid
@@ -35,39 +37,44 @@ namespace ToDo.Droid
             currentClient = (Context)client;
         }
 
-        public async Task<bool> Authenticate()
+        public async Task<bool> AuthenticateAsync()
         {
             Authenticated = false;
-            var message = string.Empty;
 
+            string authority = "https://login.microsoftonline.com/nbknxf2hotmail.onmicrosoft.com";
+            string resourceId = "e09eb4fb-7218-4d87-af41-68d754f8d2c1";
+            string clientId = "a960b30b-726e-4619-94d4-8b8687fb0414";
+            string redirectUri = "https://xformstodo.azurewebsites.net/.auth/login/done";
             try
             {
-                // Sign in with Azure Active Directory, login using a server-managed flow.
-                var user = await ToDo.Database.MobileService.LoginAsync(currentClient,
-                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, "xformstodo");
+                AuthenticationContext ac = new AuthenticationContext(authority);
+                AuthenticationResult ar = await ac.AcquireTokenAsync(resourceId, clientId,
+                    new Uri(redirectUri), new PlatformParameters((Activity)currentClient));
+                JObject payload = new JObject
+                {
+                    ["access_token"] = ar.AccessToken
+                };
+                var user = await ToDo.Database.MobileService.LoginAsync(
+                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload);
 
                 if (user != null)
                 {
-                    message = string.Format("You are signed-in as {0}.",
-                        user.UserId);
                     Authenticated = true;
                 }
+
             }
             catch (Exception ex)
             {
-                message = ex.Message;
+                AlertDialog.Builder builder = new AlertDialog.Builder(currentClient);
+                builder.SetMessage(ex.Message);
+                builder.SetTitle("You must log in. Login Required");
+                builder.Create().Show();
             }
-
-            // Display the success or failure message.
-            AlertDialog.Builder builder = new AlertDialog.Builder(currentClient);
-            builder.SetMessage(message);
-            builder.SetTitle("Sign-in result");
-            builder.Create().Show();
-
+            
             return Authenticated;
         }
 
-        public async Task<bool> Logout()
+        public async Task<bool> LogoutAsync()
         {
             Authenticated = false;
             CookieManager.Instance.RemoveAllCookie();
