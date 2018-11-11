@@ -22,7 +22,6 @@ namespace ToDo.Droid
     public class Authenticator : IAuthenticator
     {
         private Context currentClient;
-        private MobileServiceClient mobileClient;
 
         public bool Authenticated { get; set; } = false;
 
