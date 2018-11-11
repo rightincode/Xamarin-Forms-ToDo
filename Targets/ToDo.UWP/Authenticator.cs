@@ -5,6 +5,8 @@ using Windows.UI.Popups;
 using Xamarin.Forms;
 using ToDo.UWP;
 using ToDo.Interfaces;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json.Linq;
 
 [assembly: Dependency(typeof(Authenticator))]
 namespace ToDo.UWP
@@ -54,7 +56,43 @@ namespace ToDo.UWP
             return Authenticated;
         }
 
-        public async Task<bool> Logout()
+        public async Task<bool> AuthenticateAsync()
+        {
+            Authenticated = false;
+
+            string authority = "https://login.microsoftonline.com/nbknxf2hotmail.onmicrosoft.com";
+            string resourceId = "e09eb4fb-7218-4d87-af41-68d754f8d2c1";
+            string clientId = "a960b30b-726e-4619-94d4-8b8687fb0414";
+            string redirectUri = "https://xformstodo.azurewebsites.net/.auth/login/done";
+            try
+            {
+                AuthenticationContext ac = new AuthenticationContext(authority);
+                AuthenticationResult ar = await ac.AcquireTokenAsync(resourceId, clientId,
+                    new Uri(redirectUri), new PlatformParameters(PromptBehavior.Auto, false));
+                JObject payload = new JObject
+                {
+                    ["access_token"] = ar.AccessToken
+                };
+                var user = await ToDo.Database.MobileService.LoginAsync(
+                    MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload);
+
+                if (user != null)
+                {
+                    Authenticated = true;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                var message = "You must log in. Login Required";
+                var dialog = new MessageDialog(message);
+                dialog.Commands.Add(new UICommand("OK"));
+                await dialog.ShowAsync();
+            }
+
+            return Authenticated;
+        }
+
+        public async Task<bool> LogoutAsync()
         {
             Authenticated = false;
 
