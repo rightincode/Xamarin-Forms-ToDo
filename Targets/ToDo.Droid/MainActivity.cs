@@ -1,6 +1,4 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 using Android.App;
@@ -11,7 +9,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Webkit;
 
-using ToDoPCL.Interfaces;
+using ToDo.Interfaces;
 
 namespace ToDo.Droid
 {    
@@ -24,9 +22,9 @@ namespace ToDo.Droid
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
-            ToDoPCL.ToDoPCL.Init(this);
+            ToDo.Init(this);
 
-			LoadApplication (new ToDoPCL.ToDoPCL ());
+			LoadApplication (new ToDo());
 		}
     }    
 }

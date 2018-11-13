@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "760566539478",
+    "firebase_url": "https://xformstodo.firebaseio.com",
+    "project_id": "xformstodo",
+    "storage_bucket": "xformstodo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760566539478:android:7634d0a9092da583",
+        "android_client_info": {
+          "package_name": "com.netwoaksoftware.xformstodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760566539478-vhdb2iftsb23rqjofrauio3lmp9l9ivh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHPXm3BUpb8BClDG_bQe9FxDkO3xgzLqs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
