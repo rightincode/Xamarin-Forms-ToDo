@@ -5,7 +5,6 @@
     <ContentPage.Content>
         <StackLayout Padding="20">
             <Label x:Name="newTaskLbl" Text="New Task" TextColor="Blue" FontSize="18" />
-            <!--<Label x:Name="TaskIdDisplay" Text="{Binding Id, Mode=TwoWay}" />-->
             <Entry x:Name="TaskName" Placeholder="New To Do Item" WidthRequest="150" Text="{Binding TaskName, Mode=TwoWay}" />
             <Entry x:Name="Priority" Placeholder="Priority" WidthRequest="150" Text="{Binding Priority, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
