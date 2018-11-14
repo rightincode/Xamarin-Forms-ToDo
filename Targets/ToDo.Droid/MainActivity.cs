@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Android.App;
+﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
@@ -10,11 +8,6 @@ using Android.OS;
 using Android.Webkit;
 
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Newtonsoft.Json.Linq;
-
-using ToDo.Interfaces;
-using Microsoft.WindowsAzure.MobileServices;
-using Android.Content;
 
 namespace ToDo.Droid
 {    
@@ -24,8 +17,8 @@ namespace ToDo.Droid
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-
-			global::Xamarin.Forms.Forms.Init (this, bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
+            global::Xamarin.Forms.Forms.Init (this, bundle);
 
             ToDo.Init(this);
 
@@ -36,6 +29,14 @@ namespace ToDo.Droid
         {
             base.OnActivityResult(requestCode, resultCode, data);
             AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, 
+            string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }    
 }

@@ -9,7 +9,8 @@ using ToDo.Data.Interfaces;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-using Plugin.Connectivity;
+
+using Xamarin.Essentials;
 
 namespace ToDo.Data
 {
@@ -103,7 +104,7 @@ namespace ToDo.Data
 
         public async Task<bool> PullLatestAsync()
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 Debug.WriteLine("Unable to pull items, we are offline");
                 return false;
@@ -122,7 +123,7 @@ namespace ToDo.Data
 
         public async Task<bool> SyncAsync()
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 Debug.WriteLine("Unable to sync items, we are offline");
                 return false;
