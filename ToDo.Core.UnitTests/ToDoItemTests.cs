@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDo.Core.Models;
 
-namespace ToDoPCL_Tests
+namespace ToDo.Core.Tests
 {
     [TestClass]
     public class ToDoItemTests

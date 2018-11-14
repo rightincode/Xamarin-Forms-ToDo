@@ -6,7 +6,9 @@ using ToDo.Core.Models;
 
 namespace ToDo.Data.IntegrationTests
 {
+    
     [TestClass]
+    [Ignore]
     public class ToDoItemDatabaseTests
     {
         private static string databaseFolderPath;
