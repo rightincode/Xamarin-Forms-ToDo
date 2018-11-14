@@ -29,6 +29,9 @@ namespace ToDo.Core.Models
         public ToDoItem()
         {
             SetToDoItemId();
+
+            DueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
+                DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
         }
         
         private void SetToDoItemId()

@@ -67,7 +67,7 @@ namespace ToDo.ViewModels
             }
             set
             {
-                mDueDate = mCurrentToDoItem.DueDate = value;
+                mDueDate = value;
                 OnPropertyChanged("DueDate");
             }
         }
@@ -89,6 +89,9 @@ namespace ToDo.ViewModels
             : base()
         {            
             mCurrentToDoItem = currentToDoItem;
+            DueDate = currentToDoItem.DueDate;
+            DueTime = GetDueTimeFromToDoItem(currentToDoItem);
+
             mDataStore = dataStore;
         }
                 
@@ -100,7 +103,7 @@ namespace ToDo.ViewModels
             return await mDataStore.SaveItemAsync((ToDoItem)mCurrentToDoItem);
         }
                 
-        public async Task<int> LoadToDoListItem(string toDoListItemId)
+        public async Task LoadToDoListItem(string toDoListItemId)
         {
             if (!string.IsNullOrEmpty(toDoListItemId))
             {
@@ -109,13 +112,8 @@ namespace ToDo.ViewModels
                 TaskName = mCurrentToDoItem.TaskName;
                 Priority = mCurrentToDoItem.Priority;
                 DueDate = mCurrentToDoItem.DueDate;
-
+                DueTime = GetDueTimeFromToDoItem(mCurrentToDoItem);
             }
-
-            DueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute,
-                mCurrentToDoItem.DueDate.Second);
-
-            return 0;
         }
 
         public async Task<bool> DeleteToDoItem()
@@ -123,39 +121,28 @@ namespace ToDo.ViewModels
             return await mDataStore.DeleteItemAsync((ToDoItem)mCurrentToDoItem);
         }
 
-        //not used at the moment
-        public class AddToDoItemCommand : ICommand
-        {
-            event EventHandler ICommand.CanExecuteChanged
-            {
-                add
-                {
-                    throw new NotImplementedException();
-                }
-
-                remove
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            bool ICommand.CanExecute(object parameter)
-            {
-                //throw new NotImplementedException();
-                return true;
-            }
-
-            void ICommand.Execute(object parameter)
-            {
-                //AddToDoItem();
-            }
-        }
-
         private DateTime SetDueDate(DateTime date, int hour, int minute, int second)
         {
             DateTime retVal = new DateTime(date.Year, date.Month, date.Day, hour, minute, second);
 
             return retVal;
+        }
+
+        private TimeSpan GetDueTimeFromToDoItem(IToDoItem currentToDoItem)
+        {
+            TimeSpan mDueTime;
+
+            try
+            {
+                mDueTime = new TimeSpan(mCurrentToDoItem.DueDate.Hour, mCurrentToDoItem.DueDate.Minute,
+                                mCurrentToDoItem.DueDate.Second);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                mDueTime = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            }
+
+            return mDueTime;
         }
     }
 }

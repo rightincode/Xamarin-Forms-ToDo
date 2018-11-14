@@ -8,66 +8,51 @@ namespace ToDo
 {
 	public partial class CreatePage : ContentPage
 	{
-        private CreatePageViewModel vm;
         private string mTodoListItemId;
 
-        public CreatePageViewModel VM
-        {
-            get
-            {
-                return vm;
-            }
-        }
+        public CreatePageViewModel VM { get; }
 
-		public CreatePage()
+        public CreatePage()
 		{           
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
+            VM = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
             mTodoListItemId = string.Empty;
             BindingContext = VM;
-            Clear();
         }
 
         public CreatePage(string toDoListItemId)
         {
             InitializeComponent();
             WireUpEventHandlers();
-            vm = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
+            VM = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
             mTodoListItemId = toDoListItemId;
-            BindingContext = VM;
-            Clear();
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await VM.LoadToDoListItem(mTodoListItemId);
+            if (!string.IsNullOrEmpty(mTodoListItemId))
+            {
+                await VM.LoadToDoListItem(mTodoListItemId);
+                BindingContext = VM;
+            }            
         }
 
-        private void Clear()
+        private async void OnSave(object o, EventArgs e)
         {
-            TaskName.Text = Priority.Text = String.Empty;
-            DueDate.Date = DateTime.Now;
-            DueTime.Time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        }
-
-        private async void OnSave(object o, EventArgs e) {
             await VM.AddToDoItem();
-            Clear();      //causes problems if we don't wait for the database call above to complete - two way binding!!!!
             await Navigation.PopAsync();
-
         }
 
         private async void OnDelete(object o, EventArgs e)
         {
             await VM.DeleteToDoItem();
-            Clear();
             await Navigation.PopAsync();
         }
         
-        private void OnCancel(object o, EventArgs e) {
-            Clear();
+        private void OnCancel(object o, EventArgs e)
+        {
             Navigation.PopAsync();
         }
 
