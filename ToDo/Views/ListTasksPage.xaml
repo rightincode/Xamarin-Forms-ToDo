@@ -5,16 +5,16 @@
              xmlns:me="clr-namespace:ToDo">
     <ContentPage.Content>        
         <StackLayout Padding="30">
-            <Button x:Name="loginBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Please Login" />
-            <Button x:Name="logoutBtn" BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Logout" />
-            <Button x:Name="addNewItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" />            
+            <Button x:Name="loginBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Please Login" Command="{Binding LogInCommand}" />
+            <Button x:Name="logoutBtn" BackgroundColor="Red" TextColor="White" WidthRequest="100" Text="Logout" Command="{Binding LogOutCommand}" />
+            <Button x:Name="addNewItemBtn" BackgroundColor="Green" TextColor="White" WidthRequest="100" Text="Add New Item" Command="{Binding AddNewCommand}" />
+            <Button x:Name="refreshListBtn" BackgroundColor="Blue" TextColor="White" WidthRequest="100" Text="Refresh List" Command="{Binding RefreshListCommand}" />
             <ListView x:Name="ToDoList" ItemsSource="{Binding VM.ToDoItems}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Padding="5">
-                                    <!--<Label x:Name="TaskIdDisplay" Text="{Binding Id}" />-->
                                     <Label x:Name="TaskNameDisplay" Text="{Binding TaskName}" 
                                            FontSize="{ x:Static me:ListTasksPage.TaskNameFontSize }" 
                                            FontAttributes="{ x:Static me:ListTasksPage.TaskNameFontAttributes }"

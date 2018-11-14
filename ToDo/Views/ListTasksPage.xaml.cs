@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 using ToDo.ViewModels;
@@ -28,6 +29,11 @@ namespace ToDo
         public const string TaskDetailFontSize = "14";
         public const string TaskNameFontAttributes = "Bold,Italic";
         public const string TaskLabelFontAttributes = "Bold";
+
+        public ICommand LogInCommand => new Command(async () => await OnLogin());
+        public ICommand LogOutCommand => new Command(async () => await OnLogout());
+        public ICommand AddNewCommand => new Command(async () => await OnAddNew());
+        public ICommand RefreshListCommand => new Command(async () => await RefreshTaskList());
 
         public ListTasksPage(IAuthenticator authenticator, IToDoItemDatabase<ToDoItem> database)
 		{
@@ -60,17 +66,12 @@ namespace ToDo
             await Navigation.PushAsync(new CreatePage(VM.SelectedItem.Id));
         }
 
-        private async void OnAddNew(object o, EventArgs e)
-        {
-            await Navigation.PushAsync(new CreatePage());
-        }
-
         public async void OnListRefresh(object sender, EventArgs e)
         {
             await RefreshTaskList();
         }
         
-        public async void OnLogin(object sender, EventArgs e)
+        public async Task OnLogin()
         {
             if (mAuthenticator != null)
             {
@@ -86,21 +87,22 @@ namespace ToDo
             }
         }
 
-        public async void OnLogout(object sender, EventArgs e)
+        public async Task OnLogout()
         {
             await mDatabase.InitializeAsync();
             await mAuthenticator.LogoutAsync();
             SetUiPerAuthenticated();            
         }
 
+        private async Task OnAddNew()
+        {
+            await Navigation.PushAsync(new CreatePage());
+        }
+
         private void WireUpEventHandlers()
         {
             ToDoList.Refreshing += OnListRefresh;
             ToDoList.ItemTapped += OnTapped;
-            addNewItemBtn.Clicked += OnAddNew;
-            loginBtn.Clicked += OnLogin;
-            logoutBtn.Clicked += OnLogout;
-
             ToDoList.IsPullToRefreshEnabled = true;
         }
 
@@ -130,6 +132,12 @@ namespace ToDo
             loginBtn.IsVisible = false;
             logoutBtn.IsVisible = true;
             addNewItemBtn.IsVisible = true;
+
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                refreshListBtn.IsVisible = true;
+            }
+            
             ToDoList.IsVisible = true;
         }
 
@@ -138,6 +146,7 @@ namespace ToDo
             loginBtn.IsVisible = true;
             logoutBtn.IsVisible = false;
             addNewItemBtn.IsVisible = false;
+            refreshListBtn.IsVisible = false;
             ToDoList.IsVisible = false;
         }
 	}
