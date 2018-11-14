@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Windows.Input;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using ToDo.ViewModels;
@@ -10,21 +11,23 @@ namespace ToDo
 	{
         private string mTodoListItemId;
 
+        public ICommand SaveCommand => new Command(async () => await OnSave());
+        public ICommand DeleteCommand => new Command(async () => await OnDelete());
+        public ICommand CancelCommand => new Command(async () => await OnCancel());
+
         public CreatePageViewModel VM { get; }
 
         public CreatePage()
 		{           
             InitializeComponent();
-            WireUpEventHandlers();
             VM = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
             mTodoListItemId = string.Empty;
-            BindingContext = VM;
+            BindingContext = this;
         }
 
         public CreatePage(string toDoListItemId)
         {
             InitializeComponent();
-            WireUpEventHandlers();
             VM = new CreatePageViewModel(new ToDoItem(), ToDo.Database);
             mTodoListItemId = toDoListItemId;
         }
@@ -35,33 +38,26 @@ namespace ToDo
             if (!string.IsNullOrEmpty(mTodoListItemId))
             {
                 await VM.LoadToDoListItem(mTodoListItemId);
-                BindingContext = VM;
+                BindingContext = this;
             }            
         }
 
-        private async void OnSave(object o, EventArgs e)
+        private async Task OnSave()
         {
             await VM.AddToDoItem();
             await Navigation.PopAsync();
         }
 
-        private async void OnDelete(object o, EventArgs e)
+        private async Task OnDelete()
         {
             await VM.DeleteToDoItem();
             await Navigation.PopAsync();
         }
         
-        private void OnCancel(object o, EventArgs e)
+        private async Task OnCancel()
         {
-            Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
 
-        private void WireUpEventHandlers()
-        {
-            saveToDoItemBtn.Clicked += OnSave;
-            deleteToDoItemBtn.Clicked += OnDelete;
-            cancelBtn.Clicked += OnCancel;
-        }
-     
     }
 }
