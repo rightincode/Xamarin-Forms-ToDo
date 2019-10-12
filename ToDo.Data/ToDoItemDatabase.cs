@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
-
+using System.Net.Http;
 using ToDo.Core.Models;
 using ToDo.Data.Interfaces;
 
@@ -27,7 +27,7 @@ namespace ToDo.Data
         {
             _dbPath = dbPath;
 
-            MobileService = new MobileServiceClient(azureMobileAppUrl)
+            MobileService = new MobileServiceClient(azureMobileAppUrl, new HttpClientHandler())
             {
                 SerializerSettings = new MobileServiceJsonSerializerSettings
                 {
