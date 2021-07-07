@@ -5,6 +5,8 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
+using ToDoPCL;
+
 namespace ToDo.iOS
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -23,7 +25,7 @@ namespace ToDo.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init ();
-			LoadApplication (new ToDo.App ());
+			LoadApplication (new ToDoPCL.ToDoPCL ());
 
 			return base.FinishedLaunching (app, options);
 		}
